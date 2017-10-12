@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="IndustriaJPA" transaction-type="RESOURCE_LOCAL">
+		<class>br.upf.topicos.industria.entidades.Grupo</class>
+		<class>br.upf.topicos.industria.entidades.Produto</class>
+		<class>br.upf.topicos.industria.entidades.Cidade</class>
+		<class>br.upf.topicos.industria.entidades.MateriaPrima</class>
+		<class>br.upf.topicos.industria.entidades.Recebimento</class>
+		<class>br.upf.topicos.industria.entidades.RecebimentoItem</class>
+		<class>br.upf.topicos.industria.entidades.Pessoa</class>
+		<class>br.upf.topicos.industria.entidades.PessoaJuridica</class>
+		<class>br.upf.topicos.industria.entidades.PessoaFisica</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/industria"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="masterkey"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>

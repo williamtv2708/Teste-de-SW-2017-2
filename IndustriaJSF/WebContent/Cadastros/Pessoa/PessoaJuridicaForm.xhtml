@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Pessoa Juridica</title>
+</h:head>
+<h:body>
+
+	<h:form id="formEditar">
+		<p:growl></p:growl>
+		<p:panelGrid columns="2">
+
+			<f:facet name="header">
+				<p:outputLabel value="Cadastro de Pessoas Juridicas" />
+			</f:facet>
+
+			<p:outputLabel value="Código"></p:outputLabel>
+			<p:inputText size="5" value="#{pessoaJuridicaCrud.objeto.id}"
+				readonly="true" placeholder="Auto">
+			</p:inputText>
+
+			<p:outputLabel value="Nome"></p:outputLabel>
+			<p:inputText id="nome" size="20" placeholder="Informe o Nome"
+				value="#{pessoaJuridicaCrud.objeto.nome}">
+				<p:message for="nome" />
+			</p:inputText>
+
+			<p:outputLabel for="cnpj" value="CNPJ" />
+			<p:inputMask id="cnpj" value="#{pessoaJuridicaCrud.objeto.cnpj}"
+				placeholder="Informe o CNPJ" mask="99.999.999/9999-99" />
+
+			<p:outputLabel for="ie" value="IE"></p:outputLabel>
+			<p:inputMask id="ie" value="#{pessoaJuridicaCrud.objeto.ie}"
+				placeholder="Informe a Inscrição Estadual" mask="999.999.999.999" />
+
+
+						<p:outputLabel for="data" value="Data Consituição"></p:outputLabel>
+			<p:calendar id="data" value="#{pessoaJuridicaCrud.objeto.dataConstituicao}"
+				 navigator="true" pattern="dd-MM-yyyy"/>
+
+			<p:outputLabel value="Cidade" for="inputCidade" />
+			<p:autoComplete id="inputCidade" style="width:600px" dropdown="true"
+				multiple="false" forceSelection="true" var="obj"
+				itemLabel="#{obj.nome}" itemValue="#{obj}"
+				value="#{pessoaJuridicaCrud.objeto.cidade}"
+				converter="cidadeConverter"
+				completeMethod="#{pessoaJuridicaCrud.completeCidade}" />
+
+
+			<p:outputLabel value="Endereço:" for="endereco" />
+			<p:inputText id="endereco" size="50"
+				value="#{pessoaJuridicaCrud.objeto.endereco}" />
+
+			<p:outputLabel value="Número:" for="numero" />
+			<p:inputText id="numero" size="50"
+				value="#{pessoaJuridicaCrud.objeto.numero}" />
+
+			<p:outputLabel value="Complemento:" for="complemento" />
+			<p:inputText id="complemento" size="50"
+				value="#{pessoaJuridicaCrud.objeto.complemento}" />
+
+			<p:outputLabel value="Bairro:" for="bairro" />
+			<p:inputText id="bairro" size="50"
+				value="#{pessoaJuridicaCrud.objeto.bairro}" />
+
+			<p:outputLabel value="CEP:" for="cep" />
+			<p:inputMask id="cep" size="50"
+				value="#{pessoaJuridicaCrud.objeto.cep}" mask="99999-999" />
+
+			<p:outputLabel value="E-mail:" for="email" />
+			<p:inputText id="email" size="50"
+				value="#{pessoaJuridicaCrud.objeto.email}" />
+
+			<p:outputLabel value="Telefone:" for="telefone" />
+			<p:inputMask id="telefone" size="50"
+				value="#{pessoaJuridicaCrud.objeto.telefone}" mask="99 9999-9999" />
+
+
+			<f:facet name="footer">
+				<p:commandButton action="#{pessoaJuridicaCrud.gravar}" ajax="false"
+					icon="ui-icon-disk" />
+				<p:commandButton action="#{pessoaJuridicaCrud.cancelar}"
+					ajax="false" immediate="true" icon="ui-icon-arrowreturn-1-w" />
+			</f:facet>
+
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Cadastro de Cidades</title>
+</h:head>
+<h:body>
+
+	<h:form style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
+	    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+	 
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username" value="Usuário:" />
+            <p:inputText id="username" value="#{login.username}" required="true" label="username" 
+            validator="#{login.validaUser}"/>
+ 
+            <h:outputLabel for="password" value="Senha:" />
+            <p:password id="password" value="#{login.password}" required="true" label="password" />
+ 
+            <f:facet name="footer">
+                <p:commandButton value="Login" update="growl" actionListener="#{login.login}"
+                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+            </f:facet>
+            
+        </h:panelGrid>
+	</h:form>
+	 
+	<script type="text/javascript">
+	    function handleLoginRequest(xhr, status, args) {
+	        if(!args.validationFailed || args.loggedIn) {
+	            window.location.assign("cadastro.xhtml");
+	        }
+	    }
+	</script>
+	
+</h:body>
+</html>

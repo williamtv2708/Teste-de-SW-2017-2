@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+</h:head>
+<h:body onload="#{materiaPrimaCrud.inicializarLista()}">
+
+	<h:form id="formLista">
+		<p:growl></p:growl>
+		<!-- Este componente mostra mensagens de erro caso houver -->
+
+		<p:dataTable var="mp" value="#{materiaPrimaCrud.lista}"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rows="5" rowsPerPageTemplate="5,10,15">
+
+
+			<f:facet name="header">
+				<p:spacer height="30"></p:spacer>
+				<div align="left" style="position: absolute; top: 20px; width: 95%;">
+					<p:outputLabel value="Lista de Materia Prima"></p:outputLabel>
+				</div>
+				<div align="right"
+					style="position: absolute; top: 12px; width: 95%;">
+					<p:commandButton id="botaoIncluir" value="Incluir"
+						icon="ui-icon-plus" action="#{materiaPrimaCrud.incluir}"
+						ajax="false" />
+				</div>
+			</f:facet>
+
+
+			<p:column headerText="Id" sortBy="#{mp.id}" filterBy="#{mp.id}"
+				filterMatchMode="contains">
+				<h:outputText value="#{mp.id}" />
+			</p:column>
+		
+			<p:column headerText="Nome" sortBy="#{mp.nome}"
+				filterBy="#{mp.nome}" filterMatchMode="contains">
+				<h:outputText value="#{mp.nome}" />
+			</p:column>
+
+			<p:column headerText="Unidade Estoque" sortBy="#{mp.unidadeEstoque}"
+				filterBy="#{mp.unidadeEstoque}" filterMatchMode="contains">
+				<h:outputText value="#{mp.unidadeEstoque}" />
+			</p:column>
+
+
+			<p:column headerText="Quantidade Estoque"
+				sortBy="#{mp.quantidadeEstoque}" filterBy="#{mp.quantidadeEstoque}"
+				filterMatchMode="contains">
+				<h:outputText value="#{mp.quantidadeEstoque}" />
+			</p:column>
+
+			<p:column headerText="Estoque Minimo" sortBy="#{mp.estoqueMinimo}"
+				filterBy="#{mp.estoqueMinimo}" filterMatchMode="contains">
+				<h:outputText value="#{mp.estoqueMinimo}" />
+			</p:column>
+
+
+			<p:column headerText="Ultimo Custo" sortBy="#{mp.ultimoCusto}"
+				filterBy="#{mp.ultimoCusto}" filterMatchMode="contains">
+				<h:outputText value="#{mp.ultimoCusto}" />
+			</p:column>
+
+
+			<p:column headerText="Custo Médio" sortBy="#{mp.custoMedio}"
+				filterBy="#{mp.custoMedio}" filterMatchMode="contains">
+				<h:outputText value="#{mp.custoMedio}" />
+			</p:column>
+
+			<p:column headerText="Grupo" sortBy="#{mp.grupo}"
+				filterBy="#{mp.grupo}" filterMatchMode="contains">
+				<h:outputText value="#{mp.grupo.nome}" />
+			</p:column>
+
+			<p:column headerText="" width="90">
+				<p:commandButton action="#{materiaPrimaCrud.alterar(mp.id)}"
+					icon="ui-icon-pencil" title="Alterar" ajax="false" />
+			</p:column>
+
+			<p:column headerText="" width="90">
+				<p:commandButton action="#{materiaPrimaCrud.excluir(mp.id)}"
+					icon="fa fa-remove" ajax="false" title="Excluir"
+					onclick="if (!confirm('Confirma a exclusão?')) return false" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Cadastro de Materia Prima</title>
+</h:head>
+<h:body>
+
+	<h:form id="formEditar">
+		<p:growl></p:growl>
+		<p:panelGrid columns="2">
+
+			<f:facet name="header">
+				<p:outputLabel value="Cadastro de Materia Prima" />
+			</f:facet>
+
+			<p:outputLabel value="Código"></p:outputLabel>
+			<p:inputText size="5" value="#{materiaPrimaCrud.objeto.id}" readonly="true"
+				placeholder="Auto">
+
+			</p:inputText>
+
+			<p:outputLabel value="Nome"></p:outputLabel>
+			<p:inputText id="nome" size="20"
+				placeholder="Informe o nome do produto"
+				value="#{materiaPrimaCrud.objeto.nome}">
+				<p:message for="nome" />
+			</p:inputText>
+
+			<p:outputLabel value="Unidade Estoque"></p:outputLabel>
+			<p:inputText id="unidade" size="10"
+				placeholder="Informe a unidade em estoque"
+				value="#{materiaPrimaCrud.objeto.unidadeEstoque}">
+				<p:message for="unidade" />
+			</p:inputText>
+
+
+			<p:outputLabel value="Quantidade Estoque"></p:outputLabel>
+			<p:inputText id="quantidadeEstoque" size="10" placeholder="Informe a Quantidade Estoque"
+				value="#{materiaPrimaCrud.objeto.quantidadeEstoque}">
+				<p:message for="quantidadeEstoque" />
+			</p:inputText>
+
+			<p:outputLabel value="Estoque Minimo"></p:outputLabel>
+			<p:inputText id="estoqueMinimo" size="10" placeholder="Informe o Estoque Minimo"
+				value="#{materiaPrimaCrud.objeto.estoqueMinimo}">
+				<p:message for="estoqueMinimo" />
+			</p:inputText>
+
+			<p:outputLabel value="Utlimo Custo"></p:outputLabel>
+			<p:inputText id="utlimoCusto" size="10" placeholder="Informe o Último Custo"
+				value="#{materiaPrimaCrud.objeto.ultimoCusto}">
+				<p:message for="utlimoCusto" />
+			</p:inputText>
+
+			<p:outputLabel value="Custo Médio"></p:outputLabel>
+			<p:inputText id="custoMedio" size="10" placeholder="Informe o Custo Médio"
+				value="#{materiaPrimaCrud.objeto.custoMedio}">
+				<p:message for="custoMedio" />
+			</p:inputText>
+
+			<p:outputLabel value="Grupo" for="inputGrupo" />
+			<p:autoComplete id="inputGrupo" style="width:200px" dropdown="true"
+				multiple="false" forceSelection="true" var="obj"
+				itemLabel="#{obj.nome}" itemValue="#{obj}"
+				value="#{materiaPrimaCrud.objeto.grupo}"
+				converter="grupoConverter"
+				completeMethod="#{materiaPrimaCrud.completeGrupo}" />
+
+			<f:facet name="footer">
+				<p:commandButton action="#{materiaPrimaCrud.gravar}" ajax="false"
+					icon="ui-icon-disk" />
+
+				<p:commandButton action="#{materiaPrimaCrud.cancelar}" ajax="false"
+					immediate="true" icon="ui-icon-arrowreturn-1-w" />
+			</f:facet>
+
+		</p:panelGrid>
+
+	</h:form>
+
+</h:body>
+
+</html>
