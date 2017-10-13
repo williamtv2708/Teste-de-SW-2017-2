@@ -6,20 +6,28 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Cadastro de Cidades</title>
+	<title>Login</title>
 </h:head>
-<h:body>
+<h:body id="bodyLogin">
+ 	<p:idleMonitor timeout="1000" onidle="reload()"/>
 
 	<h:form style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
 	    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-	 
-        <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="username" value="Usuário:" />
-            <p:inputText id="username" value="#{login.username}" required="true" label="username" 
-            validator="#{login.validaUser}"/>
+	 	 
+<!--    RF_11 – Digitação apenas de usuário -->
+        <h:panelGrid columns="4" cellpadding="5">
+            <bolder><h:outputLabel for="username" value="Usuário:" /></bolder>
+            <p:inputText id="username" value="#{login.username}" required="true" label="username" requiredMessage="Por favor, preencher o campo Usuário!" >
+<!--            RN_07 - Formato campo Usuário -->
+            	<p:keyFilter regEx="/[a-zA-Z]/i"/>
+            </p:inputText>
  
-            <h:outputLabel for="password" value="Senha:" />
-            <p:password id="password" value="#{login.password}" required="true" label="password" />
+<!--        RF_12 – Digitação apenas de senha -->
+            <bolder><h:outputLabel for="password" value="Senha:" /></bolder>
+            <p:password id="password" value="#{login.password}" required="true" label="password" requiredMessage="Por favor, preencher o campo Senha!">
+<!--            RN_02 – Formato de senha - formato da senha -->
+            	<p:keyFilter regEx="/[a-zA-Z0-9]/i"/>
+            </p:password>
  
             <f:facet name="footer">
                 <p:commandButton value="Login" update="growl" actionListener="#{login.login}"
@@ -28,14 +36,7 @@
             
         </h:panelGrid>
 	</h:form>
-	 
-	<script type="text/javascript">
-	    function handleLoginRequest(xhr, status, args) {
-	        if(!args.validationFailed || args.loggedIn) {
-	            window.location.assign("cadastro.xhtml");
-	        }
-	    }
-	</script>
 	
+	<script src="/IndustriaJSF/js/main.js" type="text/javascript" />
 </h:body>
 </html>
