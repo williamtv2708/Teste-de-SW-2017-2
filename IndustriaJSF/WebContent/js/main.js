@@ -8,7 +8,13 @@ function handleLoginRequest(xhr, status, args) {
 function reload() {
 	if($('#bodyLogin .ui-growl.ui-widget .ui-growl-message').length > 0){
 		//adicionar o import la na login.xhtml e testar, se funcionar, ajustar o tempo pra 30000
-		setTimeout(window.location.assign("login.xhtml"),5000);
-		// RF_17 – Limpar Campos de Login
+		setTimeout(window.location.assign("Login.xhtml"),5000);
+		limpaLogin();
 	}
+}
+
+// RF_17 – Limpar Campos de Login
+function limpaLogin(){
+	document.getElementById('username').reset();
+	document.getElementById('password').reset();
 }

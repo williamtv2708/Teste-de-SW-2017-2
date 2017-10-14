@@ -12,19 +12,21 @@
 
 <!-- 	data de mes e ano -->
 	<h:form id="form" style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
-		<h:panelGrid  columns="20">
-			<p:inputText />
-		    <p:growl id="msgs" showDetail="true" />
-			<h:panelGrid cellpadding="5">
-				<p:outputLabel for="mask" value="Mask:" />
-				<p:calendar id="mask" value="#{calendarView.date}" pattern="MM-yyyy" mask="true" />
-			</h:panelGrid>
+		<h:panelGrid  columns="10">
+		
+<!-- 		Nome do Funcionário -->
+			<p:outputLabel for="name" value="Nome:" />
+			<p:inputText id="name" />
 			
-	<!-- 		ajustar pra validar ao sair do campo -->
-			<p:commandButton value="Submit" update="msgs" actionListener="#{calendarView.click}" icon="ui-icon-check" />
+<!-- 		Data da Escala em Mês e Ano -->
+			<p:outputLabel for="mask" value="Mês de Trabalho:" />
+			<p:calendar id="mask" value="#{calendarView.date}" pattern="MM-yyyy" mask="true" />
+			
+<!-- 		ajustar pra validar ao sair do campo -->
+			<p:commandButton value="Submit" update="msg" actionListener="#{calendarView.click}" icon="ui-icon-check" />
 			
 			<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-		        <p:panelGrid id="display" columnClasses="label,value">
+		        <p:panelGrid id="display">
 					<h:outputText value="Mask:" />
 		            <h:outputText value="#{calendarView.date}">
 		                <f:convertDateTime pattern="MM/yyyy" />
@@ -35,15 +37,13 @@
 	<!-- 	checkbox de ferias -->
 		    <p:growl id="msg" />
 		 
-		    <h:panelGrid style="margin-bottom:10px" cellpadding="5">
-		        <h:outputText value="Basic: " />
-		        <p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
-		 
-		        <h:outputText value="Ajax: " />
-		        <p:selectBooleanCheckbox value="#{selectBooleanView.value2}">
-		            <p:ajax update="msg" listener="#{selectBooleanView.addMessage}" />
-		        </p:selectBooleanCheckbox>
-		    </h:panelGrid>
+	        <h:outputText value="Basic: " />
+	        <p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
+	 
+	        <h:outputText value="Ajax: " />
+	        <p:selectBooleanCheckbox value="#{selectBooleanView.value2}">
+	            <p:ajax update="msg" listener="#{selectBooleanView.addMessage}" />
+	        </p:selectBooleanCheckbox>
 			
 	<!-- 		ajustar pra validar ao mudar pra true false -->
 		    <p:commandButton value="Submit" icon="ui-icon-check" update="display2" oncomplete="PF('dlg').show()" />
@@ -57,16 +57,14 @@
 		    
 	<!-- 	data de inicio de ferias -->
 		    <p:growl id="msgs2" showDetail="true" />
-			<h:panelGrid cellpadding="5">
-				<p:outputLabel for="mask2" value="Mask:" />
-	<!-- 			ajustar a linha abaixo pra pegar somente mes e anos -->
-				<p:calendar id="mask2" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" />
-			</h:panelGrid>
+			<p:outputLabel for="mask2" value="Mask:" />
+<!-- 			ajustar a linha abaixo pra pegar somente mes e anos -->
+			<p:calendar id="mask2" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" />
 			
-			<p:commandButton value="Submit" update="msgs" actionListener="#{calendarView.click}" icon="ui-icon-check" />
+			<p:commandButton value="Submit" update="msgs2" actionListener="#{calendarView.click}" icon="ui-icon-check" />
 			
 			<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-		        <p:panelGrid id="display3" columnClasses="label,value">
+		        <p:panelGrid id="display3">
 					<h:outputText value="Mask:" />
 		            <h:outputText value="#{calendarViewFerias.date}">
 	<!-- 					ajustar a linha abaixo pra pegar somente mes e ano -->
@@ -78,23 +76,21 @@
 	<!-- 	seletor quantidade -->
 		    <p:messages autoUpdate="true" />
 		 
-		    <h:panelGrid style="margin-bottom:10px" cellpadding="5">
-		        <p:outputLabel for="console" value="Quantidade de dias de folgas:" />
-		        <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
-		            <f:selectItem itemLabel="6" itemValue="6" />
-		            <f:selectItem itemLabel="5" itemValue="5" />
-		            <f:selectItem itemLabel="4" itemValue="4" />
-					<f:selectItem itemLabel="3" itemValue="3" />
-		            <f:selectItem itemLabel="2" itemValue="2" />
-		            <f:selectItem itemLabel="1" itemValue="1" />
-					<f:selectItem itemLabel="0" itemValue="0" />
-		        </p:selectOneMenu>
-			</h:panelGrid>
+	        <p:outputLabel for="console" value="Quantidade de dias de folgas:" />
+	        <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
+	            <f:selectItem itemLabel="6" itemValue="6" />
+	            <f:selectItem itemLabel="5" itemValue="5" />
+	            <f:selectItem itemLabel="4" itemValue="4" />
+				<f:selectItem itemLabel="3" itemValue="3" />
+	            <f:selectItem itemLabel="2" itemValue="2" />
+	            <f:selectItem itemLabel="1" itemValue="1" />
+				<f:selectItem itemLabel="0" itemValue="0" />
+	        </p:selectOneMenu>
 			
 			<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
 			
 			<p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
-		        <p:panelGrid id="display4" columnClasses="label,value">
+		        <p:panelGrid id="display4">
 		            <h:outputText value="Basic:" />
 		            <h:outputText value="#{selectOneMenuView.console}" />
 				</p:panelGrid>
