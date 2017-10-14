@@ -1,5 +1,5 @@
 function handleLoginRequest(xhr, status, args) {
-    if(!args.validationFailed && args.validaUser == 2) {
+    if(!args.validationFailed) {
         window.location.assign("cadastro.xhtml");
     }
 }
