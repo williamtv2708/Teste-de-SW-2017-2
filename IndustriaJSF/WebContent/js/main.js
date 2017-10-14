@@ -8,7 +8,7 @@ function handleLoginRequest(xhr, status, args) {
 // RF_15 – Tempo de Espera de Login
 function reload() {
 	if($('#bodyLogin .ui-growl.ui-widget .ui-growl-message').length > 0){
-		setTimeout(window.location.assign("Login.xhtml"),30000);
+		setTimeout(window.location.reload(),5000);
 		limpaLogin();
 	}
 }
