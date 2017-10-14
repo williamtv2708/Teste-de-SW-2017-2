@@ -16,13 +16,13 @@ public class CalendarView {
 	public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SimpleDateFormat format = new SimpleDateFormat("MM/yyyy");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Selecionada", format.format(event.getObject())));
     }
      
     public void click() {
         RequestContext requestContext = RequestContext.getCurrentInstance();
          
-        requestContext.update("form:display");
+        requestContext.update("form:ferias");
         requestContext.execute("PF('dlg').show()");
     }
 	
