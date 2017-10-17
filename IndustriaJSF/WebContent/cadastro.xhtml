@@ -12,7 +12,6 @@
 	
 	<h:body>
 	
-	<!-- 	data de mes e ano -->
 		<h:form id="form" style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
 			<h:panelGrid columns="10">
 			
@@ -40,16 +39,32 @@
 		        </p:selectBooleanCheckbox>
 			    
 	<!-- 		data de inicio de ferias -->
-			    <p:growl id="msgs2" showDetail="true" />
-				<p:outputLabel for="mask2" value="Mask:" />
-	<!-- 			ajustar a linha abaixo pra pegar somente mes e anos -->
-				<p:calendar id="mask2" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
+			    <p:growl id="initFerias" showDetail="true" />
+				<p:outputLabel for="initFerias" value="Início de Férias:" />
+				<p:calendar id="initFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
 				
-				<p:commandButton value="Submit" update="msgs2" actionListener="#{calendarView.click}" icon="ui-icon-check" />
+<!-- 				<p:commandButton value="Submit" update="initFerias" actionListener="#{calendarView.click}" icon="ui-icon-check" /> -->
 				
 				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-			        <p:panelGrid id="display3">
-						<h:outputText value="Mask:" />
+			        <p:panelGrid id="initFerias">
+						<h:outputText value="Início de Férias:" />
+			            <h:outputText value="#{calendarViewFerias.date}">
+			                <f:convertDateTime pattern="dd/MM/yyyy" />
+			            </h:outputText>
+					</p:panelGrid>
+			    </p:dialog>
+			    
+<!-- 			teste pra saber se a data inical foi preenchida  -->
+    <!-- 		data de fim de ferias -->
+			    <p:growl id="endFerias" showDetail="true" />
+				<p:outputLabel for="endFerias" value="Fim de Férias:" />
+				<p:calendar id="endFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
+				
+<!-- 				<p:commandButton value="Submit" update="endFerias" actionListener="#{calendarView.click}" icon="ui-icon-check" /> -->
+				
+				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+			        <p:panelGrid id="endFerias">
+						<h:outputText value="Fim de Férias:" />
 			            <h:outputText value="#{calendarViewFerias.date}">
 			                <f:convertDateTime pattern="dd/MM/yyyy" />
 			            </h:outputText>
@@ -70,7 +85,7 @@
 					<f:selectItem itemLabel="0" itemValue="0" />
 		        </p:selectOneMenu>
 				
-				<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
+<!-- 				<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" /> -->
 				
 				<p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
 			        <p:panelGrid id="display4">
@@ -80,6 +95,15 @@
 			    </p:dialog>
 			</h:panelGrid>
 	
+<!-- 		Validação total, pegar todos os dados do form e avçar pra uma modal de confirmação de cadastro -->
+			<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
+			
+<!-- 		lightbox de confirmação de cadastro -->
+			<p:commandButton value="Basic" type="button" onclick="PF('dlg1').show();" />
+			<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
+			    <h:outputText value="Resistance to PrimeFaces is futile!" />
+			</p:dialog>
+			
 		</h:form>
 		
 		<script>
