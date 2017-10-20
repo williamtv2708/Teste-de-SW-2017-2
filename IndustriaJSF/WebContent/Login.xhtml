@@ -8,30 +8,33 @@
 <h:head>
 	<title>Login</title>
 </h:head>
-<h:body id="bodyLogin">
+<h:body id="bodyLogin" onload="limpaLogin()" >
  	<p:idleMonitor timeout="1000" onidle="reload()"/>
 
 	<h:form style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
 	    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 	 	 
 <!--    RF_11 – Digitação apenas de usuário -->
-        <h:panelGrid columns="4" cellpadding="5">
-            <bolder><h:outputLabel for="username" value="Usuário:" /></bolder>
-            <p:inputText id="username" value="#{login.username}" required="true" label="username" requiredMessage="Por favor, preencher o campo Usuário!" >
+        <h:panelGrid columns="3" cellpadding="5" id="formLogin" >
+            <h:outputLabel for="username" value="Usuário:" />
+            <p:inputText id="username" value="#{login.username}" required="true" label="username" requiredMessage="Por favor, preencher o campo Usuário!" 
+            	validatorMessage="O tamanho do campo Usuário deve conter de 6 a 12 caracteres!">
 <!--            RN_07 - Formato campo Usuário -->
             	<p:keyFilter regEx="/[a-zA-Z]/i"/>
+            	<f:validateLength minimum="6" maximum="12" />
             </p:inputText>
  
 <!--        RF_12 – Digitação apenas de senha -->
-            <bolder><h:outputLabel for="password" value="Senha:" /></bolder>
-            <p:password id="password" value="#{login.password}" required="true" label="password" requiredMessage="Por favor, preencher o campo Senha!">
+            <h:outputLabel for="password" value="Senha:" />
+            <p:password id="password" value="#{login.password}" required="true" label="password" requiredMessage="Por favor, preencher o campo Senha!" 
+				validatorMessage="O tamanho do campo Senha deve conter de 6 a 12 caracteres!">
 <!--            RN_02 – Formato de senha - formato da senha -->
             	<p:keyFilter regEx="/[a-zA-Z0-9]/i"/>
+            	<f:validateLength minimum="6" maximum="12" />
             </p:password>
  
             <f:facet name="footer">
-                <p:commandButton value="Login" update="growl" actionListener="#{login.login}"
-                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+                <p:commandButton value="Login" update="growl" actionListener="#{login.login}" oncomplete="handleLoginRequest(xhr, status, args)" />
             </f:facet>
             
         </h:panelGrid>

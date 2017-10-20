@@ -1,3 +1,4 @@
+// validação do botão Login
 function handleLoginRequest(xhr, status, args) {
     if(!args.validationFailed) {
         window.location.assign("cadastro.xhtml");
@@ -7,8 +8,15 @@ function handleLoginRequest(xhr, status, args) {
 // RF_15 – Tempo de Espera de Login
 function reload() {
 	if($('#bodyLogin .ui-growl.ui-widget .ui-growl-message').length > 0){
-		//adicionar o import la na login.xhtml e testar, se funcionar, ajustar o tempo pra 30000
-		setTimeout(window.location.assign("login.xhtml"),5000);
-		// RF_17 – Limpar Campos de Login
+		setTimeout(window.location.reload(),5000);
+		limpaLogin();
 	}
+}
+
+// RF_17 – Limpar Campos de Login
+function limpaLogin(){
+	document.getElementById('j_idt5:username').value="";
+	document.getElementById('j_idt5:password').value="";
+	// criar rf de iniciar seleção no campo login
+	document.getElementById('j_idt5:username').focus();
 }

@@ -5,80 +5,75 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>Cadastro</title>
-</h:head>
-<h:body>
-
-<!-- 	data de mes e ano -->
-	<h:form id="form" style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
-		<h:panelGrid  columns="20">
-			<p:inputText />
-		    <p:growl id="msgs" showDetail="true" />
-			<h:panelGrid cellpadding="5">
-				<p:outputLabel for="mask" value="Mask:" />
-				<p:calendar id="mask" value="#{calendarView.date}" pattern="MM-yyyy" mask="true" />
-			</h:panelGrid>
-			
-	<!-- 		ajustar pra validar ao sair do campo -->
-			<p:commandButton value="Submit" update="msgs" actionListener="#{calendarView.click}" icon="ui-icon-check" />
-			
-			<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-		        <p:panelGrid id="display" columnClasses="label,value">
-					<h:outputText value="Mask:" />
-		            <h:outputText value="#{calendarView.date}">
-		                <f:convertDateTime pattern="MM/yyyy" />
-		            </h:outputText>
-				</p:panelGrid>
-		    </p:dialog>
 	
-	<!-- 	checkbox de ferias -->
-		    <p:growl id="msg" />
-		 
-		    <h:panelGrid style="margin-bottom:10px" cellpadding="5">
-		        <h:outputText value="Basic: " />
-		        <p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
-		 
-		        <h:outputText value="Ajax: " />
-		        <p:selectBooleanCheckbox value="#{selectBooleanView.value2}">
-		            <p:ajax update="msg" listener="#{selectBooleanView.addMessage}" />
+	<h:head>
+		<title>Cadastro</title>
+	</h:head>
+	
+	<h:body>
+	
+		<h:form id="form" style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
+			<h:panelGrid columns="10">
+			
+	<!-- 		Nome do Funcionário -->
+				<p:outputLabel for="name" value="Nome:" />
+				<p:inputText id="name" />
+				
+	<!-- 		Data da Escala em Mês e Ano -->
+				<p:outputLabel for="mesAno" value="Mês de Trabalho:" />
+				<p:calendar id="mesAno" value="#{calendarView.date}" pattern="MM-yyyy" mask="true" locale="pt" />
+				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+			        <p:panelGrid id="display">
+			            <h:outputText value="#{calendarView.date}">
+			                <f:convertDateTime pattern="MM/yyyy" />
+			            </h:outputText>
+					</p:panelGrid>
+			    </p:dialog>
+		
+	<!-- 		checkbox de ferias -->
+			    <p:growl id="ferias" />
+			 
+		        <h:outputText value="Férias: " />
+		        <p:selectBooleanCheckbox value="#{selectBooleanView.value}">
+		        	<p:ajax update="ferias" listener="#{selectBooleanView.activeFerias}" />
 		        </p:selectBooleanCheckbox>
-		    </h:panelGrid>
-			
-	<!-- 		ajustar pra validar ao mudar pra true false -->
-		    <p:commandButton value="Submit" icon="ui-icon-check" update="display2" oncomplete="PF('dlg').show()" />
-		 
-		    <p:dialog header="Values" modal="true" resizable="false" showEffect="fade" widgetVar="dlg">
-		        <h:panelGrid id="display2">
-		            <h:outputText value="Value 1: #{selectBooleanView.value1}" />
-		            <h:outputText value="Value 2: #{selectBooleanView.value2}" />
-		        </h:panelGrid>
-		    </p:dialog>
-		    
-	<!-- 	data de inicio de ferias -->
-		    <p:growl id="msgs2" showDetail="true" />
-			<h:panelGrid cellpadding="5">
-				<p:outputLabel for="mask2" value="Mask:" />
-	<!-- 			ajustar a linha abaixo pra pegar somente mes e anos -->
-				<p:calendar id="mask2" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" />
-			</h:panelGrid>
-			
-			<p:commandButton value="Submit" update="msgs" actionListener="#{calendarView.click}" icon="ui-icon-check" />
-			
-			<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-		        <p:panelGrid id="display3" columnClasses="label,value">
-					<h:outputText value="Mask:" />
-		            <h:outputText value="#{calendarViewFerias.date}">
-	<!-- 					ajustar a linha abaixo pra pegar somente mes e ano -->
-		                <f:convertDateTime pattern="dd/MM/yyyy" />
-		            </h:outputText>
-				</p:panelGrid>
-		    </p:dialog>
-		    
-	<!-- 	seletor quantidade -->
-		    <p:messages autoUpdate="true" />
-		 
-		    <h:panelGrid style="margin-bottom:10px" cellpadding="5">
+			    
+	<!-- 		data de inicio de ferias -->
+			    <p:growl id="initFerias" showDetail="true" />
+				<p:outputLabel for="initFerias" value="Início de Férias:" />
+				<p:calendar id="initFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
+				
+<!-- 				<p:commandButton value="Submit" update="initFerias" actionListener="#{calendarView.click}" icon="ui-icon-check" /> -->
+				
+				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+			        <p:panelGrid id="initFerias">
+						<h:outputText value="Início de Férias:" />
+			            <h:outputText value="#{calendarViewFerias.date}">
+			                <f:convertDateTime pattern="dd/MM/yyyy" />
+			            </h:outputText>
+					</p:panelGrid>
+			    </p:dialog>
+			    
+<!-- 			teste pra saber se a data inical foi preenchida  -->
+    <!-- 		data de fim de ferias -->
+			    <p:growl id="endFerias" showDetail="true" />
+				<p:outputLabel for="endFerias" value="Fim de Férias:" />
+				<p:calendar id="endFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
+				
+<!-- 				<p:commandButton value="Submit" update="endFerias" actionListener="#{calendarView.click}" icon="ui-icon-check" /> -->
+				
+				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+			        <p:panelGrid id="endFerias">
+						<h:outputText value="Fim de Férias:" />
+			            <h:outputText value="#{calendarViewFerias.date}">
+			                <f:convertDateTime pattern="dd/MM/yyyy" />
+			            </h:outputText>
+					</p:panelGrid>
+			    </p:dialog>
+			    
+		<!-- 	seletor quantidade -->
+			    <p:messages autoUpdate="true" />
+			 
 		        <p:outputLabel for="console" value="Quantidade de dias de folgas:" />
 		        <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
 		            <f:selectItem itemLabel="6" itemValue="6" />
@@ -89,19 +84,55 @@
 		            <f:selectItem itemLabel="1" itemValue="1" />
 					<f:selectItem itemLabel="0" itemValue="0" />
 		        </p:selectOneMenu>
+				
+<!-- 				<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" /> -->
+				
+				<p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
+			        <p:panelGrid id="display4">
+			            <h:outputText value="Basic:" />
+			            <h:outputText value="#{selectOneMenuView.console}" />
+					</p:panelGrid>
+			    </p:dialog>
 			</h:panelGrid>
-			
+	
+<!-- 		Validação total, pegar todos os dados do form e avçar pra uma modal de confirmação de cadastro -->
 			<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
 			
-			<p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
-		        <p:panelGrid id="display4" columnClasses="label,value">
-		            <h:outputText value="Basic:" />
-		            <h:outputText value="#{selectOneMenuView.console}" />
-				</p:panelGrid>
-		    </p:dialog>
-		</h:panelGrid>
-
-	</h:form>
-	
-</h:body>
+<!-- 		lightbox de confirmação de cadastro -->
+			<p:commandButton value="Basic" type="button" onclick="PF('dlg1').show();" />
+			<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
+			    <h:outputText value="Resistance to PrimeFaces is futile!" />
+			</p:dialog>
+			
+		</h:form>
+		
+		<script>
+		    PrimeFaces.locales['pt'] = {
+		        closeText: 'Fechar',
+		        prevText: 'Anterior',
+		        nextText: 'Próximo',
+		        currentText: 'Começo',
+		        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+		        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+		        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+		        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+		        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+		        weekHeader: 'Semana',
+		        firstDay: 0,
+		        isRTL: false,
+		        showMonthAfterYear: false,
+		        yearSuffix: '',
+		        timeOnlyTitle: 'Só Horas',
+		        timeText: 'Tempo',
+		        hourText: 'Hora',
+		        minuteText: 'Minuto',
+		        secondText: 'Segundo',
+		        ampm: false,
+		        month: 'Mês',
+		        week: 'Semana',
+		        day: 'Dia',
+		        allDayText: 'Todo o Dia'
+		    };
+		</script>
+	</h:body>
 </html>
