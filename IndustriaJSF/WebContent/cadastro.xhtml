@@ -13,7 +13,7 @@
 	<h:body>
 	
 		<h:form id="form" style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
-			<h:panelGrid columns="10">
+			<h:panelGrid columns="40">
 			
 	<!-- 		Nome do Funcionário -->
 				<p:outputLabel for="name" value="Nome:" />
@@ -42,9 +42,7 @@
 			    <p:growl id="initFerias" showDetail="true" />
 				<p:outputLabel for="initFerias" value="Início de Férias:" />
 				<p:calendar id="initFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
-				
-<!-- 				<p:commandButton value="Submit" update="initFerias" actionListener="#{calendarView.click}" icon="ui-icon-check" /> -->
-				
+<!-- 1 -->
 				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
 			        <p:panelGrid id="initFerias">
 						<h:outputText value="Início de Férias:" />
@@ -59,9 +57,7 @@
 			    <p:growl id="endFerias" showDetail="true" />
 				<p:outputLabel for="endFerias" value="Fim de Férias:" />
 				<p:calendar id="endFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
-				
-<!-- 				<p:commandButton value="Submit" update="endFerias" actionListener="#{calendarView.click}" icon="ui-icon-check" /> -->
-				
+<!-- 2 -->
 				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
 			        <p:panelGrid id="endFerias">
 						<h:outputText value="Fim de Férias:" />
@@ -84,9 +80,7 @@
 		            <f:selectItem itemLabel="1" itemValue="1" />
 					<f:selectItem itemLabel="0" itemValue="0" />
 		        </p:selectOneMenu>
-				
-<!-- 				<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" /> -->
-				
+<!-- 3 -->
 				<p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
 			        <p:panelGrid id="display4">
 			            <h:outputText value="Basic:" />
@@ -95,11 +89,11 @@
 			    </p:dialog>
 			</h:panelGrid>
 	
-<!-- 		Validação total, pegar todos os dados do form e avçar pra uma modal de confirmação de cadastro -->
-			<p:commandButton value="Submit" update="display4" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
 			
+<!-- 4 -->
+<!-- 		Validação total, pegar todos os dados do form e avçar pra uma modal de confirmação de cadastro -->
 <!-- 		lightbox de confirmação de cadastro -->
-			<p:commandButton value="Basic" type="button" onclick="PF('dlg1').show();" />
+			<p:commandButton value="Enviar" type="button" onclick="PF('dlg1').show();" />
 			<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
 			    <h:outputText value="Resistance to PrimeFaces is futile!" />
 			</p:dialog>
