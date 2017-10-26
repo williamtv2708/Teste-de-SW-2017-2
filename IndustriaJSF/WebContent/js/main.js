@@ -1,9 +1,13 @@
 var i;
 
 // validação do botão Login
+// RF_13 - Digitação de dados Inconsistentes
 function handleLoginRequest(xhr, status, args) {
     if(!args.validationFailed) {
         window.location.assign("cadastro.xhtml");
+    }else{
+    	passwordRed();
+    	loginRed();
     }
 }
 
@@ -30,3 +34,30 @@ function reload(){
 		}
 	}
 }
+
+// RF_11 - Digitação apenas de usuário
+function passwordRed(){
+	var mensagem = $('#bodyLogin .ui-growl-title').text();
+	if(mensagem.indexOf('preencher o campo Senha') > 0) {
+		var campoSenha = $('#bodyLogin .ui-password').css({
+		    'border-color': '#FF0000 #FF0000'
+		});
+	}
+}
+
+//RF_12 - Digitação apenas de senha
+function loginRed(){
+	var mensagem = $('#bodyLogin .ui-growl-title').text();
+	if(mensagem.indexOf('preencher o campo Usuário') > 0) {
+		var campoSenha = $('#bodyLogin .loginRed').css({
+		    'border-color': '#FF0000 #FF0000'
+		});
+	}
+}
+
+//criar rf pra evitar do usuário Colar
+$(document).ready(function() {
+    $(".bloqueiaColar").bind('paste', function(e) {
+        e.preventDefault();
+    });
+});

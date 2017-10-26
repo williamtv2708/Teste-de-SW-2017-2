@@ -19,6 +19,7 @@
 				<p:outputLabel for="name" value="Nome:" />
 				<p:inputText id="name" />
 				
+<!-- 			RF_05 - Data do Cadastro de Funcionário -->
 	<!-- 		Data da Escala em Mês e Ano -->
 				<p:outputLabel for="mesAno" value="Mês de Trabalho:" />
 				<p:calendar id="mesAno" value="#{calendarView.date}" pattern="MM-yyyy" mask="true" locale="pt" />
@@ -38,6 +39,7 @@
 		        	<p:ajax update="ferias" listener="#{selectBooleanView.activeFerias}" />
 		        </p:selectBooleanCheckbox>
 			    
+<!-- 			RF_07 - Validação das datas de Férias -->
 	<!-- 		data de inicio de ferias -->
 			    <p:growl id="initFerias" showDetail="true" />
 				<p:outputLabel for="initFerias" value="Início de Férias:" />
@@ -66,7 +68,9 @@
 			            </h:outputText>
 					</p:panelGrid>
 			    </p:dialog>
-			    
+<!-- 			END - RF_07 - Validação das datas de Férias -->
+			 
+<!-- 			RF_08 - Dias de folga    -->
 		<!-- 	seletor quantidade -->
 			    <p:messages autoUpdate="true" />
 			 
@@ -80,6 +84,7 @@
 		            <f:selectItem itemLabel="1" itemValue="1" />
 					<f:selectItem itemLabel="0" itemValue="0" />
 		        </p:selectOneMenu>
+
 <!-- 3 -->
 				<p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
 			        <p:panelGrid id="display4">

@@ -18,13 +18,7 @@ public class Login {
     
     // validação total
     public void login(){
-//    	rn06();
     	rn03();
-//    	rn02();
-    	
-//    	if(validaUser == 1 && validaPassword == 1){
-//    		message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bem Vindo", username);
-//    	}
     }
 
     // RN_03 – Usuário Cadastrado previamente
@@ -40,24 +34,6 @@ public class Login {
     		message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao fazer tentar Login", "Senha Inválida");
     	}
     }
-    
-//    // RN_06 – Tamanho campo Usuário
-//    public void rn06() {
-//        if(username.length() > 5 && username.length() < 13){
-//        	validaUser = validaUser ++;
-//        }else{
-//        	message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro de Usuário", "O tamanho do campo Usuário deve conter de 6 a 12 caracteres!");
-//        }
-//    }
-    
-//    // RN_02 – Formato de senha - tamanho da senha
-//    public void rn02() {
-//    	if(password.length() > 5 && password.length() < 13){
-//    		validaPassword = validaPassword ++;
-//    	}else{
-//    		message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro de Senha", "O tamanho do campo Senha deve conter de 6 a 12 caracteres!");
-//    	}
-//    }
     
     public String getUsername() {
     	return username;
@@ -90,14 +66,6 @@ public class Login {
 	public void setValidaPassword(int validaPassword) {
 		this.validaPassword = validaPassword;
 	}
-	
-//	public RequestContext getContext() {
-//		return context;
-//	}
-//	
-//	public void setContext(RequestContext context) {
-//		this.context = context;
-//	}
 	
 	public FacesMessage getMessage() {
 		return message;
