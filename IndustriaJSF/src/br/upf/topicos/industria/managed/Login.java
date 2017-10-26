@@ -13,7 +13,6 @@ public class Login {
     public int validaUser = 0;
     public int validaPassword = 0;
     
-//    RequestContext context = RequestContext.getCurrentInstance();
     FacesMessage message = null;
     
     // validação total

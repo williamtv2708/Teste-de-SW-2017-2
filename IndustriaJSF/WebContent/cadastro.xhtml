@@ -10,7 +10,7 @@
 		<title>Cadastro</title>
 	</h:head>
 	
-	<h:body>
+	<h:body id="bodyCadastro">
 	
 		<h:form id="form" style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
 			<h:panelGrid columns="40">
@@ -41,10 +41,9 @@
 			    
 <!-- 			RF_07 - Validação das datas de Férias -->
 	<!-- 		data de inicio de ferias -->
-			    <p:growl id="initFerias" showDetail="true" />
 				<p:outputLabel for="initFerias" value="Início de Férias:" />
 				<p:calendar id="initFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
-<!-- 1 -->
+
 				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
 			        <p:panelGrid id="initFerias">
 						<h:outputText value="Início de Férias:" />
@@ -59,7 +58,7 @@
 			    <p:growl id="endFerias" showDetail="true" />
 				<p:outputLabel for="endFerias" value="Fim de Férias:" />
 				<p:calendar id="endFerias" value="#{calendarViewFerias.date}" pattern="dd-MM-yyyy" mask="true" locale="pt" />
-<!-- 2 -->
+
 				<p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
 			        <p:panelGrid id="endFerias">
 						<h:outputText value="Fim de Férias:" />
@@ -85,7 +84,6 @@
 					<f:selectItem itemLabel="0" itemValue="0" />
 		        </p:selectOneMenu>
 
-<!-- 3 -->
 				<p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
 			        <p:panelGrid id="display4">
 			            <h:outputText value="Basic:" />
@@ -95,7 +93,6 @@
 			</h:panelGrid>
 	
 			
-<!-- 4 -->
 <!-- 		Validação total, pegar todos os dados do form e avçar pra uma modal de confirmação de cadastro -->
 <!-- 		lightbox de confirmação de cadastro -->
 			<p:commandButton value="Enviar" type="button" onclick="PF('dlg1').show();" />
@@ -105,6 +102,7 @@
 			
 		</h:form>
 		
+<!-- 	Formatação do Calendário para Português -->
 		<script>
 		    PrimeFaces.locales['pt'] = {
 		        closeText: 'Fechar',
@@ -133,5 +131,6 @@
 		        allDayText: 'Todo o Dia'
 		    };
 		</script>
+		
 	</h:body>
 </html>
