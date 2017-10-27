@@ -1,27 +1,36 @@
 // validação do botão Login
 // RF_13 - Digitação de dados Inconsistentes
 function handleLoginRequest(xhr, status, args) {
+
 	if (!args.validationFailed) {
 		window.location.assign("cadastro.xhtml");
 	} else {
 		passwordRed();
 		loginRed();
 	}
+	
+//	var user = $('#bodyLogin .inicializarLimpoUsuario').text();
+//	var password = $('#bodyLogin .inicializarLimpoSenha').text();
+//	
+//	if (!args.validationFailed && user.indexOf('usuario') > 0 && password.indexOf('william20') > 0){
+//		window.location.assign("cadastro.xhtml");
+//	} else {
+//		passwordRed();
+//		loginRed();
+//	}
 }
 
 // RF_15 – Tempo de Espera de Login
 function verificaTempo() {
 	if ($('#bodyLogin .ui-growl.ui-widget .ui-growl-message').length > 0) {
-		setTimeout(reload(), 10000);
+		setTimeout(reload(), 30000);
 	}
 }
 
 // RF_17 – Limpar Campos de Login
 function limpaLogin() {
-	document.getElementById('j_idt5:username').value = "";
-	document.getElementById('j_idt5:password').value = "";
-	// criar rf de iniciar seleção no campo login
-	document.getElementById('j_idt5:username').focus();
+	$('#bodyLogin .inicializarLimpoUsuario').value="";
+	$('#bodyLogin .inicializarLimpoSenha').value="";
 }
 
 function reload() {
@@ -61,12 +70,17 @@ function bloqueiaURL() {
 	}
 }
 
-$(document).ready(function() {
+function init() {
 	// criar rf pra evitar do usuário Colar
-	$(".bloqueiaColar").bind('paste', function(e) {
+	$('.bloqueiaColar').bind('paste', function(e) {
 		e.preventDefault();
 	});
+	
+	// inicializar o Login com o Campo Usuário já selecionado - criar rf
+	$('.inicializaSelecionado').focus();
 
 	// chamada - RNF/SEG-01 - Requisito de Segurança
 	bloqueiaURL();
-});
+}
+
+$(document).ready(init());

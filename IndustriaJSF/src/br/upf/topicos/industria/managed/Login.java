@@ -18,6 +18,9 @@ public class Login {
     // validação total
     public void login(){
     	rn03();
+    	if(validaUser == 1 && validaPassword == 1){
+    		
+    	}
     }
 
     // RN_03 – Usuário Cadastrado previamente
