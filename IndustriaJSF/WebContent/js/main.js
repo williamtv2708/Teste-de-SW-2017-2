@@ -66,7 +66,8 @@ function loginRed() {
 function bloqueiaURL() {
 	var url = window.location.href.toString();
 	if(url == "http://localhost:8080/IndustriaJSF/faces/cadastro.xhtml"){
-		alert("Erro! Você não tem permissão de acesso!");
+//		alert("Erro! Você não tem permissão de acesso!");
+//		window.location.assign("Login.xhtml");
 	}
 }
 
@@ -81,6 +82,49 @@ function init() {
 
 	// chamada - RNF/SEG-01 - Requisito de Segurança
 	bloqueiaURL();
+	
+	// RF_02 - Seletor de férias - iniciar desabilitado
+	if('#bodyCadastro'){
+		$('.opaco input').prop('disabled', true );
+	}
 }
+
+// RF_02 - Seletor de férias
+function checkFerias() { 
+	var check = $('.testeOpaco div.ui-chkbox-box');
+	if (check.hasClass('ui-state-active')){
+		$('.opaco input').prop('disabled', true );
+	}else{
+		$('.opaco input').prop('disabled', false );
+	}
+}
+
+//	Formatação do Calendário para Português
+PrimeFaces.locales['pt'] = {
+    closeText: 'Fechar',
+    prevText: 'Anterior',
+    nextText: 'Próximo',
+    currentText: 'Começo',
+    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+    weekHeader: 'Semana',
+    firstDay: 0,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: '',
+    timeOnlyTitle: 'Só Horas',
+    timeText: 'Tempo',
+    hourText: 'Hora',
+    minuteText: 'Minuto',
+    secondText: 'Segundo',
+    ampm: false,
+    month: 'Mês',
+    week: 'Semana',
+    day: 'Dia',
+    allDayText: 'Todo o Dia'
+};
 
 $(document).ready(init());
