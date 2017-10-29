@@ -19,6 +19,21 @@ public class CalendarView {
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Selecionada", format.format(event.getObject())));
     }
      
+	public Date atualDate(){
+		// RF_06 - Validação data do Cadastro de Funcionário
+		// pegar a data atual aqui e retornar
+		Date data = new Date();
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+		formatador.format( data );
+		return data;
+	}
+	
+	public void forMonthDate(){
+		// RF_06 - Validação data do Cadastro de Funcionário
+		// pegar quatro meses a frente da data atual aqui e retornar
+		
+	}
+	
     public void click() {
         RequestContext requestContext = RequestContext.getCurrentInstance();
          
