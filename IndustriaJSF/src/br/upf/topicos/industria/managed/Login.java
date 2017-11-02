@@ -3,8 +3,6 @@ package br.upf.topicos.industria.managed;
 import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;
  
-import org.primefaces.context.RequestContext;
-
 @ManagedBean
 public class Login {
      

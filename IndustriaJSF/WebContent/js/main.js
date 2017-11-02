@@ -2,9 +2,8 @@
 // RF_13 - Digitação de dados Inconsistentes
 function handleLoginRequest(xhr, status, args) {
 
-	if (!args.validationFailed) {
-		window.location.assign("cadastro.xhtml");
-	} else {
+	if (args.validationFailed) {
+//		window.location.assign("cadastro.xhtml");
 		passwordRed();
 		loginRed();
 	}
@@ -62,12 +61,36 @@ function loginRed() {
 	}
 }
 
+// fazer rf para os campos em vermelho
+function bordaRed(i) {
+	var pinta = i.css({
+		'border-color' : '#FF0000 #FF0000'
+	});
+}
+
+//fazer rf para os campos em vermelho
+function bordaNormal(i) {
+	var pinta = i.css({
+		'border-color' : '#bed6f8 #bed6f8'
+	});
+}
+
 // RNF/SEG-01 - Requisito de Segurança
 function bloqueiaURL() {
 	var url = window.location.href.toString();
 	if(url == "http://localhost:8080/IndustriaJSF/faces/cadastro.xhtml"){
 //		alert("Erro! Você não tem permissão de acesso!");
 //		window.location.assign("Login.xhtml");
+	}
+}
+
+// RF_02 - Seletor de férias
+function checkFerias() { 
+	var check = $('.testeOpaco div.ui-chkbox-box');
+	if (check.hasClass('ui-state-active')){
+		$('.opaco input').prop('disabled', true );
+	}else{
+		$('.opaco input').prop('disabled', false );
 	}
 }
 
@@ -87,16 +110,26 @@ function init() {
 	if('#bodyCadastro'){
 		$('.opaco input').prop('disabled', true );
 	}
-}
-
-// RF_02 - Seletor de férias
-function checkFerias() { 
-	var check = $('.testeOpaco div.ui-chkbox-box');
-	if (check.hasClass('ui-state-active')){
-		$('.opaco input').prop('disabled', true );
-	}else{
-		$('.opaco input').prop('disabled', false );
-	}
+	
+	$('.click').click(function(){
+		// pitando campo nome
+		var a = $('.pitura');
+		if(a.val() == ""){
+			bordaRed(a);
+		}else{
+			bordaNormal(a);
+		}
+		
+		// pintando campo Mes de Trabalho
+		var b = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker');
+		if(b.val() == ""){
+			bordaRed(b);
+			alert("Por favor, preencher o campo Mês de Trabalho!");
+			// testar aqui pra ele não avançar se estiver vazio
+		}else{
+			bordaNormal(b);
+		}
+	})
 }
 
 //	Formatação do Calendário para Português
