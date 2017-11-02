@@ -16,7 +16,6 @@ public class SelectOneMenuView {
     
     @PostConstruct
     public void init() {
-    	//options
     	// pegar o valor selecionado
         options = new ArrayList<String>();
         for(int i = 0; i < 7; i++) {

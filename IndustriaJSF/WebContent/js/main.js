@@ -89,6 +89,7 @@ function checkFerias() {
 	var check = $('.testeOpaco div.ui-chkbox-box');
 	if (check.hasClass('ui-state-active')){
 		$('.opaco input').prop('disabled', true );
+		$('.opaco input').value="";
 	}else{
 		$('.opaco input').prop('disabled', false );
 	}
@@ -101,6 +102,7 @@ function init() {
 	});
 	
 	// inicializar o Login com o Campo Usuário já selecionado - criar rf
+	// inicializar o Cadastro com o Campo Nome já selecionado - criar rf
 	$('.inicializaSelecionado').focus();
 
 	// chamada - RNF/SEG-01 - Requisito de Segurança
@@ -121,13 +123,33 @@ function init() {
 		}
 		
 		// pintando campo Mes de Trabalho
-		var b = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker');
+		var b = $('.mesAnoRed input');
 		if(b.val() == ""){
 			bordaRed(b);
 			alert("Por favor, preencher o campo Mês de Trabalho!");
 			// testar aqui pra ele não avançar se estiver vazio
 		}else{
 			bordaNormal(b);
+		}
+		
+		// pintando campo Início de Férias
+		var c = $('.initFerias input');
+		if(c.val() == ""){
+			bordaRed(c);
+			alert("Por favor, preencher o campo Início de Férias!");
+			// testar aqui pra ele não avançar se estiver vazio
+		}else{
+			bordaNormal(c);
+		}
+		
+		// pintando campo Fim de Férias
+		var c = $('.endFerias input');
+		if(c.val() == ""){
+			bordaRed(c);
+			alert("Por favor, preencher o campo Fim de Férias!");
+			// testar aqui pra ele não avançar se estiver vazio
+		}else{
+			bordaNormal(c);
 		}
 	})
 }
