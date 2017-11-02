@@ -49,13 +49,13 @@ public class CalendarView {
 					// aprovar aqui o próximo passo a validação final
 					return df;
 				}else{
-					message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro entre as datas de férias", "A diferença ultrapassa 31 dias.");
+					message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro entre as datas de férias", "A diferença ultrapassa 31 dias.");
 				}
 			}else{
-				message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro na Final Inicial de Férias", "A data final deve ser maior que a data inicial.");
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro na Final Inicial de Férias", "A data final deve ser maior que a data inicial.");
 			}
 		}else{
-			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro na Data Inicial de Férias", "A data inicial deve ser maior ou igual que a data da escala.");
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro na Data Inicial de Férias", "A data inicial deve ser maior ou igual que a data da escala.");
 		}
 		return null;
 	}

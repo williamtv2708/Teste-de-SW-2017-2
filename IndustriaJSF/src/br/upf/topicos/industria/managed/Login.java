@@ -28,12 +28,12 @@ public class Login {
     	if(username != null && username.equals("usuario")) {
     		validaUser = validaUser ++;
     	} else {
-    		message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao fazer tentar Login", "Usuário Inválido");
+    		message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao fazer tentar Login", "Usuário Inválido");
     	}
     	if(password != null && password.equals("william20")) {
     		validaPassword = validaPassword ++;
     	} else {
-    		message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao fazer tentar Login", "Senha Inválida");
+    		message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao fazer tentar Login", "Senha Inválida");
     	}
     }
     
