@@ -23,6 +23,7 @@ public class Cadastro {
 	FacesMessage message = null;
 	
 	public void buttonAction(ActionEvent actionEvent) {
+		click();
 //		if(date.equals(null)){
 			addMessage("Funcionário " + funcName + " cadastrado com Sucesso!");
 //		}else{
@@ -83,35 +84,35 @@ public class Cadastro {
 	
 	public DateFormat maxDate(){
 		// validar aqui a data máxima, referente a data inicial.
-//		if(dateInit.before(dateEnd)){
-//			// a data da escala é no mínimo a atual
-//			// a data inicial é maior que a data da escala
-//			// a data final é maior que a data inicial
-//			
-//			// contador de dias
-//			DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
-//			df.setLenient(false);
-//			Date d1 = null;
-//			Date d2 = null; 
-//			try {
-//				d1 = df.parse ("dateInit");
-//				d2 = df.parse ("dateEnd");
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			long dt = (d2.getTime() - d1.getTime()) + 3600000; // 1 hora para compensar horário de verão
-//			if(dt / 86400000L < 32){
-//				// a diferença entre as datas é menor que 32 dias
-////				System.out.println (dt / 86400000L); // passaram-se 67111 dias
-//				// aprovar aqui o próximo passo a validação final
-//				return df;
-//			}else{
-//				message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro entre as datas de férias", "A diferença ultrapassa 31 dias.");
-//			}
-//		}else{
-//			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro na Final Inicial de Férias", "A data final deve ser maior que a data inicial.");
-//		}
+		if(dateInit.before(dateEnd)){
+			// a data da escala é no mínimo a atual
+			// a data inicial é maior que a data da escala
+			// a data final é maior que a data inicial
+			
+			// contador de dias
+			DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
+			df.setLenient(false);
+			Date d1 = null;
+			Date d2 = null; 
+			try {
+				d1 = df.parse ("dateInit");
+				d2 = df.parse ("dateEnd");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			long dt = (d2.getTime() - d1.getTime()) + 3600000; // 1 hora para compensar horário de verão
+			if(dt / 86400000L < 32){
+				// a diferença entre as datas é menor que 32 dias
+//				System.out.println (dt / 86400000L); // passaram-se 67111 dias
+				// aprovar aqui o próximo passo a validação final
+				return df;
+			}else{
+				message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro entre as datas de férias", "A diferença ultrapassa 31 dias.");
+			}
+		}else{
+			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro na Final Inicial de Férias", "A data final deve ser maior que a data inicial.");
+		}
 		
 		return null;
 	}

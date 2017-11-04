@@ -126,7 +126,6 @@ function init() {
 		var b = $('.mesAnoRed input');
 		if(b.val() == ""){
 			bordaRed(b);
-			alert("Por favor, preencher o campo Mês de Trabalho!");
 			// testar aqui pra ele não avançar se estiver vazio
 		}else{
 			bordaNormal(b);
@@ -136,7 +135,6 @@ function init() {
 		var c = $('.initFerias input');
 		if(c.val() == ""){
 			bordaRed(c);
-			alert("Por favor, preencher o campo Início de Férias!");
 			// testar aqui pra ele não avançar se estiver vazio
 		}else{
 			bordaNormal(c);
@@ -146,7 +144,6 @@ function init() {
 		var c = $('.endFerias input');
 		if(c.val() == ""){
 			bordaRed(c);
-			alert("Por favor, preencher o campo Fim de Férias!");
 			// testar aqui pra ele não avançar se estiver vazio
 		}else{
 			bordaNormal(c);
