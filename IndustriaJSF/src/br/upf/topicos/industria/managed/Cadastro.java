@@ -23,9 +23,11 @@ public class Cadastro {
 	FacesMessage message = null;
 	
 	public void buttonAction(ActionEvent actionEvent) {
-		click();
+		clickDate();
+		clickDateInit();
+		clickDateEnd();
 //		if(date.equals(null)){
-			addMessage("Funcionário " + funcName + " cadastrado com Sucesso!");
+//			addMessage("Funcionário " + funcName + " cadastrado com Sucesso!");
 //		}else{
 //			addMessageError("Erro ao selecionar data de Trabalho", "Por favor, selecionar uma data de Trabalho!");
 //		}
@@ -127,8 +129,8 @@ public class Cadastro {
 	}
 	
 	public Date dateInit(){
-		// pegar a data inicial e setar como mínima pra data final de férias
-		return dateInit;
+		// pegar a data da escala e setar como mínima pra férias
+		return getDate();
 	}
 	
 	public void onDateSelect(SelectEvent event) {
@@ -137,11 +139,19 @@ public class Cadastro {
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Selecionada", format.format(event.getObject())));
     }
 	
-    public void click() {
+    public void clickDate() {
         RequestContext requestContext = RequestContext.getCurrentInstance();
-         
-        requestContext.update("form:ferias");
-        requestContext.execute("PF('dlg').show()");
+        requestContext.update("form:mesAno");
+    }
+    
+    public void clickDateInit() {
+    	RequestContext requestContext = RequestContext.getCurrentInstance();
+    	requestContext.update("form:initFerias");
+    }
+    
+    public void clickDateEnd() {
+    	RequestContext requestContext = RequestContext.getCurrentInstance();
+    	requestContext.update("form:endFerias");
     }
 	
 	public String getFuncName() {

@@ -88,14 +88,48 @@ function bloqueiaURL() {
 function checkFerias() { 
 	var check = $('.testeOpaco div.ui-chkbox-box');
 	if (check.hasClass('ui-state-active')){
-		$('.opaco input').prop('disabled', true );
+		$('.opaco input').prop('disabled', true);
+		// ajustar pra limpar os campos
 		$('.opaco input').value="";
+		// deixar cinza as letras e campo
+		$('.cinza').css({
+			'border-color' : '#CCCCCC #CCCCCC',
+			'color' : '#CCCCCC'
+		});
+		$('.cinza input').css({
+			'border-color' : '#CCCCCC #CCCCCC',
+			'color' : '#CCCCCC'
+		});
+		
+		// remove o required dos campos de data
+		$('.initFerias.cinza input').prop('aria-required', false);
+		$('.endFerias.cinza input').prop('aria-required', false);
 	}else{
-		$('.opaco input').prop('disabled', false );
+		$('.opaco input').prop('disabled', false);
+		bordaNormal($('.cinza'));
+		$('.cinza').css({
+			'color' : '#000000'
+		});
+		$('.cinza input').css({
+			'color' : '#000000'
+		});
+		
+		// deixar os campos de data required
+		$('.initFerias.cinza input').prop('aria-required', true);
+		$('.endFerias.cinza input').prop('aria-required', true);
 	}
 }
 
+function readonlyTrue() {
+	// adicionando readonly nos calendários pra aparecer a mensagem de erro
+	$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', true);
+	$('.initFerias.cinza input').prop('readonly', true);
+	$('.endFerias.cinza input').prop('readonly', true);
+}
+
 function init() {
+	readonlyTrue();
+	
 	// criar rf pra evitar do usuário Colar
 	$('.bloqueiaColar').bind('paste', function(e) {
 		e.preventDefault();
@@ -113,6 +147,13 @@ function init() {
 		$('.opaco input').prop('disabled', true );
 	}
 	
+	// iniciar os campos de data opacos
+	$('.cinza').css({
+		'border-color' : '#CCCCCC #CCCCCC',
+		'color' : '#CCCCCC'
+	});
+	
+	// validações do botão Enviar
 	$('.click').click(function(){
 		// pitando campo nome
 		var a = $('.pitura');
@@ -131,23 +172,32 @@ function init() {
 			bordaNormal(b);
 		}
 		
-		// pintando campo Início de Férias
-		var c = $('.initFerias input');
-		if(c.val() == ""){
-			bordaRed(c);
-			// testar aqui pra ele não avançar se estiver vazio
-		}else{
-			bordaNormal(c);
+		// verifica o checkbox pra pintar os campos de férias
+		var check = $('.testeOpaco div.ui-chkbox-box');
+		if (check.hasClass('ui-state-active')){
+			// pintando campo Início de Férias
+			var c = $('.initFerias input');
+			if(c.val() == ""){
+				bordaRed(c);
+				// testar aqui pra ele não avançar se estiver vazio
+			}else{
+				bordaNormal(c);
+			}
+			
+			// pintando campo Fim de Férias
+			var c = $('.endFerias input');
+			if(c.val() == ""){
+				bordaRed(c);
+				// testar aqui pra ele não avançar se estiver vazio
+			}else{
+				bordaNormal(c);
+			}
 		}
 		
-		// pintando campo Fim de Férias
-		var c = $('.endFerias input');
-		if(c.val() == ""){
-			bordaRed(c);
-			// testar aqui pra ele não avançar se estiver vazio
-		}else{
-			bordaNormal(c);
-		}
+		// removendo readonly dos calendários pra aparecer a mensagem de erro
+		$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', false);
+		$('.initFerias.cinza input').prop('readonly', false);
+		$('.endFerias.cinza input').prop('readonly', false);
 	})
 }
 
