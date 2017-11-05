@@ -133,6 +133,11 @@ public class Cadastro {
 		return getDate();
 	}
 	
+	public Date dateInitEnd(){
+		// pegar a data da escala e setar como mínima pra férias
+		return getDateInit();
+	}
+	
 	public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
