@@ -1,9 +1,10 @@
-package br.upf.topicos.industria.managed;
+package br.upf.topicos.industria.teste;
 
 import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 
+import br.upf.topicos.industria.managed.Login;
 import br.upf.topicos.industria.util.GerirFactory;
 
 public class Test {

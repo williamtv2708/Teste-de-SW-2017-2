@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<title>Férias</title>
+	</h:head>
+	
+	<h:body id="bodyFerias">
+	
+		<h:form id="form" style="position: absolute; top: 45%; left: 30%;">
+		    <p:messages autoUpdate="true" id="growl"/>
+			<h:panelGrid columns="40">
+
+		<!--	RF_07 - Validação das datas de Férias -->
+		<!--	data de inicio de ferias -->
+				<p:outputLabel for="initFerias" value="Início de Férias:" class="cinza"/>
+				<p:calendar id="initFerias" class="opaco bloqueiaColar initFerias cinza" required="true" requiredMessage="Por favor, preencher o campo Início de Férias!" value="#{cadastro.dateInit}" pattern="dd/MM/yyyy" mask="true" locale="pt" mindate="#{cadastro.dateInit()}"/>
+
+		<!--	data de fim de ferias -->
+				<p:outputLabel for="endFerias" value="Fim de Férias:" class="cinza"/>
+				<p:calendar id="endFerias" class="opaco bloqueiaColar endFerias cinza" required="true" requiredMessage="Por favor, preencher o campo Fim de Férias!" value="#{cadastro.dateEnd}" pattern="dd/MM/yyyy" mask="true" locale="pt" mindate="#{cadastro.dateInitEnd()}" maxdate="#{cadastro.validaDateFerias()}"/>
+		<!--	END - RF_07 - Validação das datas de Férias -->
+			    
+				<p:commandButton value="Enviar" id="ajax" update="growl" actionListener="#{cadastro.buttonAction}" class="ui-priority-primary click" />
+				
+			</h:panelGrid>
+		</h:form>
+		
+		<script src="/IndustriaJSF/js/main.js" type="text/javascript" />
+	</h:body>
+</html>
