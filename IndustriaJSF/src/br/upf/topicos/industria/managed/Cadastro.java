@@ -22,16 +22,20 @@ public class Cadastro {
 	public Date dateEnd;
 	FacesMessage message = null;
 	
-	public void buttonAction(ActionEvent actionEvent) {
+	public void enviar(ActionEvent actionEvent) {
 		clickDate();
-		clickDateInit();
-		clickDateEnd();
+//		clickDateInit();
+//		clickDateEnd();
 //		if(date.equals(null)){
 //			addMessage("Funcionário " + funcName + " cadastrado com Sucesso!");
 //		}else{
 //			addMessageError("Erro ao selecionar data de Trabalho", "Por favor, selecionar uma data de Trabalho!");
 //		}
     }
+	
+	public void avancar(ActionEvent actionEvent) {
+		clickDate();
+	}
      
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);

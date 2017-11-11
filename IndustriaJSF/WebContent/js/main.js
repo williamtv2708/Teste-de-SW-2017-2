@@ -1,12 +1,13 @@
+var validator = 0;
 // validação do botão Login
 // RF_13 - Digitação de dados Inconsistentes
-function handleLoginRequest(xhr, status, args) {
-
-	if (args.validationFailed) {
+//function handleLoginRequest(xhr, status, args) {
+//
+//	if (args.validationFailed) {
 //		window.location.assign("cadastro.xhtml");
-		passwordRed();
-		loginRed();
-	}
+//		passwordRed();
+//		loginRed();
+//	}
 	
 //	var user = $('#bodyLogin .inicializarLimpoUsuario').text();
 //	var password = $('#bodyLogin .inicializarLimpoSenha').text();
@@ -17,7 +18,7 @@ function handleLoginRequest(xhr, status, args) {
 //		passwordRed();
 //		loginRed();
 //	}
-}
+//}
 
 // RF_15 – Tempo de Espera de Login
 function verificaTempo() {
@@ -88,47 +89,86 @@ function bloqueiaURL() {
 function checkFerias() { 
 	var check = $('.testeOpaco div.ui-chkbox-box');
 	if (check.hasClass('ui-state-active')){
-		$('.opaco input').prop('disabled', true);
-		// ajustar pra limpar os campos
-		$('.opaco input').value="";
-		// deixar cinza as letras e campo
-		$('.cinza').css({
-			'border-color' : '#CCCCCC #CCCCCC',
-			'color' : '#CCCCCC'
-		});
-		$('.cinza input').css({
-			'border-color' : '#CCCCCC #CCCCCC',
-			'color' : '#CCCCCC'
-		});
-		
-		// remove o required dos campos de data
-		$('.initFerias.cinza input').prop('aria-required', false);
-		$('.endFerias.cinza input').prop('aria-required', false);
-	}else{
-		$('.opaco input').prop('disabled', false);
-		bordaNormal($('.cinza'));
-		$('.cinza').css({
-			'color' : '#000000'
-		});
-		$('.cinza input').css({
-			'color' : '#000000'
-		});
-		
-		// deixar os campos de data required
-		$('.initFerias.cinza input').prop('aria-required', true);
-		$('.endFerias.cinza input').prop('aria-required', true);
+//		$('.buttonEnviar span').prop('textContent', 'Enviar');
+//		$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
+//		$('.opaco input').prop('disabled', true);
+//		// ajustar pra limpar os campos
+//		$('.opaco input').value="";
+//		// deixar cinza as letras e campo
+//		$('.cinza').css({
+//			'border-color' : '#CCCCCC #CCCCCC',
+//			'color' : '#CCCCCC'
+//		});
+//		$('.cinza input').css({
+//			'border-color' : '#CCCCCC #CCCCCC',
+//			'color' : '#CCCCCC'
+//		});
+//		
+//		// remove o required dos campos de data
+//		$('.initFerias.cinza input').prop('aria-required', false);
+//		$('.endFerias.cinza input').prop('aria-required', false);
+//	}else{
+//		$('.buttonEnviar span').prop('textContent', 'Avançar');
+//		$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.avancar}');
+//		$('.opaco input').prop('disabled', false);
+//		bordaNormal($('.cinza'));
+//		$('.cinza').css({
+//			'color' : '#000000'
+//		});
+//		$('.cinza input').css({
+//			'color' : '#000000'
+//		});
+//		
+//		// deixar os campos de data required
+//		$('.initFerias.cinza input').prop('aria-required', true);
+//		$('.endFerias.cinza input').prop('aria-required', true);
 	}
 }
 
 function readonlyTrue() {
 	// adicionando readonly nos calendários pra aparecer a mensagem de erro
 	$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', true);
-	$('.initFerias.cinza input').prop('readonly', true);
-	$('.endFerias.cinza input').prop('readonly', true);
+//	$('.initFerias.cinza input').prop('readonly', true);
+//	$('.endFerias.cinza input').prop('readonly', true);
+}
+
+// login validator
+$('#bodyLogin .login').click(function(){
+	var user = $('#bodyLogin .inicializarLimpoUsuario').val();
+	var key = $('#bodyLogin .inicializarLimpoSenha').val();
+	
+	if(user == "usuario"){
+		if(key == "william20"){
+			$('.nameLabel').data('loginvalidator', 1);
+			validator = validator + 1;
+			verificaLogin(validator);
+		}else{
+			if(user != "" && key != ""  && key.length > 5){
+				//erro de senha
+				alert("Erro ao fazer tentar Login, Senha Inválida");
+			}
+		}
+	}else{
+		if(user != "" && key != "" && user.length > 5){
+			//erro de usuário
+			alert("Erro ao fazer tentar Login, Usuário Inválido");
+		}
+	}
+});
+
+function verificaLogin(validator){
+	if(validator == 1){
+		window.location.assign("cadastro.xhtml");
+	}
 }
 
 function init() {
+	// marcando readonly
 	readonlyTrue();
+	
+	// iniciando os actionListener dos botões
+	$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
+//	$('#bodyFerias .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
 	
 	// criar rf pra evitar do usuário Colar
 	$('.bloqueiaColar').bind('paste', function(e) {
@@ -176,28 +216,66 @@ function init() {
 		var check = $('.testeOpaco div.ui-chkbox-box');
 		if (check.hasClass('ui-state-active')){
 			// pintando campo Início de Férias
-			var c = $('.initFerias input');
-			if(c.val() == ""){
-				bordaRed(c);
-				// testar aqui pra ele não avançar se estiver vazio
-			}else{
-				bordaNormal(c);
-			}
+//			var c = $('.initFerias input');
+//			if(c.val() == ""){
+//				bordaRed(c);
+//				// testar aqui pra ele não avançar se estiver vazio
+//			}else{
+//				bordaNormal(c);
+//			}
+//			
+//			// pintando campo Fim de Férias
+//			var c = $('.endFerias input');
+//			if(c.val() == ""){
+//				bordaRed(c);
+//				// testar aqui pra ele não avançar se estiver vazio
+//			}else{
+//				bordaNormal(c);
+//			}
 			
-			// pintando campo Fim de Férias
-			var c = $('.endFerias input');
-			if(c.val() == ""){
-				bordaRed(c);
-				// testar aqui pra ele não avançar se estiver vazio
-			}else{
-				bordaNormal(c);
+			//testar se todos os campos foram preenchidos
+			//apresentar mensagem de finalização
+//			window.location.assign("ferias.xhtml");
+		}
+		
+		// trocar para a página de férias
+//		if($('.buttonEnviar span').prop('actionListener', '#{cadastro.avancar}')){
+//			window.location.assign("ferias.xhtml");
+//		}
+		
+		// validação total pra mostrar dados na tela de confirmação
+		// limpar os campos após concluído
+		var finalName = $('.bloqueiaColar.pitura.inicializaSelecionado').val();
+		var finalmes = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker').val();
+		var finalFeriasFalse = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-blank').val();
+		var finalFeriasTrue = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-check').val();
+		var finalQuantidade = $('.ui-helper-hidden-accessible select').val();
+		if(finalName != ""){
+			if(finalmes != ""){
+				if(finalFeriasFalse != undefined){
+					// seletor desmarcado
+					if(finalQuantidade == "Selecione a quantidade de Folgas" || 
+							finalQuantidade == "0 Dia" ||
+							finalQuantidade == "1 Dia" ||
+							finalQuantidade == "2 Dias" ||
+							finalQuantidade == "3 Dias"){
+						// mensagem de confirmação, se sim, finalizar
+						
+					}else{
+						// apenas finalizar
+						
+					}
+				}else if(finalFeriasTrue != undefined){
+					// seletor marcado
+					
+				}
 			}
 		}
 		
 		// removendo readonly dos calendários pra aparecer a mensagem de erro
 		$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', false);
-		$('.initFerias.cinza input').prop('readonly', false);
-		$('.endFerias.cinza input').prop('readonly', false);
+//		$('.initFerias.cinza input').prop('readonly', false);
+//		$('.endFerias.cinza input').prop('readonly', false);
 	})
 }
 
