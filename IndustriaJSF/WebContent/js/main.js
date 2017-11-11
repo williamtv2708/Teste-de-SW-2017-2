@@ -252,22 +252,56 @@ function init() {
 		var finalQuantidade = $('.ui-helper-hidden-accessible select').val();
 		if(finalName != ""){
 			if(finalmes != ""){
+				// seletor desmarcado
 				if(finalFeriasFalse != undefined){
-					// seletor desmarcado
-					if(finalQuantidade == "Selecione a quantidade de Folgas" || 
-							finalQuantidade == "0 Dia" ||
-							finalQuantidade == "1 Dia" ||
-							finalQuantidade == "2 Dias" ||
-							finalQuantidade == "3 Dias"){
-						// mensagem de confirmação, se sim, finalizar
-						
+					// valida se foi selecionado quantidade de folgas
+					if(finalQuantidade == "Selecione a quantidade de Folgas"){
+						alert("Erro! Por favor selecione uma quantidade de folgas!")
 					}else{
-						// apenas finalizar
-						
+						if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
+							// mensagem de confirmação, se sim, finalizar
+							
+							
+							
+							$(function() {
+								  $("#whats").focus(function() {
+								    $("#dialog-confirm").dialog({
+								      resizable: true,
+								      modal: false,
+								      buttons: {
+								        "Sim": function() {
+								          $("#whats").val($("#celular").val());
+								          $(this).dialog("close");          
+								        },
+								        "Não": function() {
+								          $(this).dialog("close");          
+								        }
+								      }
+								    });
+								  });
+								});
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados: - Data de Trabalho: " + finalmes + " - Funcionário sem férias no Mês - Funcionário com " + finalQuantidade + " de folga.")
+						}else{
+							// apenas finalizar
+							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados: - Data de Trabalho: " + finalmes + " - Funcionário sem férias no Mês - Funcionário com " + finalQuantidade + " de folga.")
+						}
 					}
+				// seletor marcado
 				}else if(finalFeriasTrue != undefined){
-					// seletor marcado
 					
+					alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados: - Data de Trabalho: " + finalmes + " - Funcionário com férias no Mês - Funcionário com " + finalQuantidade + " de folga.")
 				}
 			}
 		}
