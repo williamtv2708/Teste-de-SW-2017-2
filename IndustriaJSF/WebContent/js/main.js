@@ -284,14 +284,6 @@ function init() {
 							
 							
 							
-							
-							
-							
-							
-							
-							
-							
-							
 							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados: - Data de Trabalho: " + finalmes + " - Funcionário sem férias no Mês - Funcionário com " + finalQuantidade + " de folga.")
 						}else{
 							// apenas finalizar
