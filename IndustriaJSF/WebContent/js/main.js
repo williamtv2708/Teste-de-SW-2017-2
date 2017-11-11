@@ -1,4 +1,5 @@
 var validator = 0;
+
 // validação do botão Login
 // RF_13 - Digitação de dados Inconsistentes
 //function handleLoginRequest(xhr, status, args) {
@@ -162,6 +163,10 @@ function verificaLogin(validator){
 	}
 }
 
+function limpaCamposCadastro(){
+	
+}
+
 function init() {
 	// marcando readonly
 	readonlyTrue();
@@ -255,45 +260,51 @@ function init() {
 				// seletor desmarcado
 				if(finalFeriasFalse != undefined){
 					// valida se foi selecionado quantidade de folgas
-					if(finalQuantidade == "Selecione a quantidade de Folgas"){
+					if(finalQuantidade == ""){
 						alert("Erro! Por favor selecione uma quantidade de folgas!")
 					}else{
 						if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
+							
 							// mensagem de confirmação, se sim, finalizar
+							var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
 							
+							if (r==true){
+								alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+								// limpar todos os campos - criar rf
+								limpaCamposCadastro();
+							}
 							
-							
-							$(function() {
-								  $("#whats").focus(function() {
-								    $("#dialog-confirm").dialog({
-								      resizable: true,
-								      modal: false,
-								      buttons: {
-								        "Sim": function() {
-								          $("#whats").val($("#celular").val());
-								          $(this).dialog("close");          
-								        },
-								        "Não": function() {
-								          $(this).dialog("close");          
-								        }
-								      }
-								    });
-								  });
-								});
-							
-							
-							
-							
-							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados: - Data de Trabalho: " + finalmes + " - Funcionário sem férias no Mês - Funcionário com " + finalQuantidade + " de folga.")
 						}else{
 							// apenas finalizar
-							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados: - Data de Trabalho: " + finalmes + " - Funcionário sem férias no Mês - Funcionário com " + finalQuantidade + " de folga.")
+							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+							// limpar todos os campos - criar rf
+							limpaCamposCadastro();
 						}
 					}
 				// seletor marcado
 				}else if(finalFeriasTrue != undefined){
-					
-					alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados: - Data de Trabalho: " + finalmes + " - Funcionário com férias no Mês - Funcionário com " + finalQuantidade + " de folga.")
+					// valida se foi selecionado quantidade de folgas
+					if(finalQuantidade == ""){
+						alert("Erro! Por favor selecione uma quantidade de folgas!")
+					}else{
+						if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
+							
+							// mensagem de confirmação, se sim, finalizar
+							var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
+							
+							if (r==true){
+								alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+								// limpar todos os campos - criar rf
+								limpaCamposCadastro();
+							}
+							
+						}else{
+							// apenas finalizar
+							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+							// limpar todos os campos - criar rf
+							limpaCamposCadastro();
+						}
+					}
 				}
 			}
 		}
