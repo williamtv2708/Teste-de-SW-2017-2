@@ -1,5 +1,3 @@
-var validator = 0;
-
 // validação do botão Login
 // RF_13 - Digitação de dados Inconsistentes
 //function handleLoginRequest(xhr, status, args) {
@@ -30,6 +28,7 @@ function verificaTempo() {
 
 // RF_17 – Limpar Campos de Login
 function limpaLogin() {
+	var validator = false;
 	$('#bodyLogin .inicializarLimpoUsuario').value="";
 	$('#bodyLogin .inicializarLimpoSenha').value="";
 }
@@ -133,6 +132,11 @@ function readonlyTrue() {
 //	$('.endFerias.cinza input').prop('readonly', true);
 }
 
+function readonlyFalse(){
+	// remove os readonly dos calendários pra bloquear novamente a escrita
+	$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', false);
+}
+
 // login validator
 $('#bodyLogin .login').click(function(){
 	var user = $('#bodyLogin .inicializarLimpoUsuario').val();
@@ -140,28 +144,42 @@ $('#bodyLogin .login').click(function(){
 	
 	if(user == "usuario"){
 		if(key == "william20"){
-			$('.nameLabel').data('loginvalidator', 1);
-			validator = validator + 1;
-			verificaLogin(validator);
+//			$('#bodyCadastro .nameLabel').data('loginvalidator', true);
+			$('#verificaLogin').addClass('loginvalidator');
+			validator = true;
+			redirectCadastro(validator);
 		}else{
 			if(user != "" && key != ""  && key.length > 5){
-				//erro de senha
+				// erro de senha
 				alert("Erro ao fazer tentar Login, Senha Inválida");
 			}
 		}
 	}else{
 		if(user != "" && key != "" && user.length > 5){
-			//erro de usuário
+			// erro de usuário
 			alert("Erro ao fazer tentar Login, Usuário Inválido");
 		}
 	}
 });
 
-function verificaLogin(validator){
-	if(validator == 1){
+function redirectCadastro(validator){
+	if(validator){
 		window.location.assign("cadastro.xhtml");
+		$('#verificaLogin').addClass('loginvalidator');
+		return;
+	}
+	if($('#verificaLogin').hasClass('loginvalidator')){
+		window.location.assign("cadastro.xhtml");
+	}else{
+		alert("Você não tem permissão de acesso!");
+		window.location.assign("Login.xhtml");
 	}
 }
+
+$('#logout').click(function(){
+	$('#verificaLogin').removeClass('loginvalidator');
+	window.location.assign("Login.xhtml");
+});
 
 function limpaCamposCadastro(){
 	
@@ -170,6 +188,8 @@ function limpaCamposCadastro(){
 function init() {
 	// marcando readonly
 	readonlyTrue();
+	
+	logout();
 	
 	// iniciando os actionListener dos botões
 	$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
@@ -308,12 +328,8 @@ function init() {
 				}
 			}
 		}
-		
-		// removendo readonly dos calendários pra aparecer a mensagem de erro
-		$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', false);
-//		$('.initFerias.cinza input').prop('readonly', false);
-//		$('.endFerias.cinza input').prop('readonly', false);
-	})
+		setTimeout(readonlyTrue(), 3000);
+	});
 }
 
 //	Formatação do Calendário para Português
