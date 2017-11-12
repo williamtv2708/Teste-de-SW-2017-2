@@ -21,14 +21,6 @@ public class Login {
     	message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao fazer tentar Login", "Senha Inválida");
     }
     
-    // validação total
-    public void login(){
-    	rn03();
-    	if(validaUser == 1 && validaPassword == 1){
-    		password = username;
-    	}
-    }
-    
     // RN_03 – Usuário Cadastrado previamente
     public void rn03() {
     	if(username != null && username.equals("usuario")) {

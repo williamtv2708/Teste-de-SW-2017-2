@@ -54,11 +54,13 @@ function bordaNormal(i) {
 	});
 }
 
+// RF_18 - Bloqueio de Data
 function readonlyTrue() {
 	// adicionando readonly nos calendários pra aparecer a mensagem de erro
 	$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', true);
 }
 
+//RF_18 - Bloqueio de Data
 function readonlyFalse(){
 	// remove os readonly dos calendários pra bloquear novamente a escrita
 	$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', false);
@@ -91,7 +93,6 @@ $('#bodyLogin .login').click(function(){
 	}
 });
 
-
 //RNF/SEG-01 - Requisito de Segurança
 function validaCookie(){
 	if(getCookie('cookieLogin') == ""){
@@ -100,9 +101,13 @@ function validaCookie(){
 	}
 }
 
-// criar rf - ao enviar cadastro é pra limpar todos os campos
+// RF_19 – Mensagem de Confirmação de Envio
+// ao enviar cadastro é pra limpar todos os campos
 function limpaCamposCadastro(){
-	
+	$('.limparNome').val("");
+	$('.limparData').val("");
+	$('.limparCheck').val("");
+	$('.limparSeletor').val("");
 }
 
 // criador do cookie
@@ -151,22 +156,24 @@ function init() {
 	// marcando readonly
 	readonlyTrue();
 	
+	// RF_20 - Validação Botão Sair
 	// logout
 	$('.logout').click(function(){
 		deleteCookie('cookieLogin');
 		redirectLogin();
 	});
 	
-	// iniciando os actionListener dos botões
+	// iniciando os actionListener do botão
 	$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
 	
-	// criar rf pra evitar do usuário Colar
+	// RF_21 – Retirar o Evento Colar
 	$('.bloqueiaColar').bind('paste', function(e) {
 		e.preventDefault();
 	});
 	
-	// inicializar o Login com o Campo Usuário já selecionado - criar rf
-	// inicializar o Cadastro com o Campo Nome já selecionado - criar rf
+	// RF_22 - Inicializar Selecionado
+	// inicializar o Login com o Campo Usuário já selecionado
+	// inicializar o Cadastro com o Campo Nome já selecionado
 	$('.inicializaSelecionado').focus();
 
 	// RF_02 - Seletor de férias - iniciar desabilitado
@@ -174,13 +181,7 @@ function init() {
 		$('.opaco input').prop('disabled', true );
 	}
 	
-	// iniciar os campos de data opacos
-	$('.cinza').css({
-		'border-color' : '#CCCCCC #CCCCCC',
-		'color' : '#CCCCCC'
-	});
-	
-//	RF_10 - Enviar Informações
+	// RF_10 - Enviar Informações
 	// validações do botão Enviar
 	$('.click').click(function(){
 		// pitando campo nome
@@ -195,14 +196,12 @@ function init() {
 		var b = $('.mesAnoRed input');
 		if(b.val() == ""){
 			bordaRed(b);
-			// testar aqui pra ele não avançar se estiver vazio
 		}else{
 			bordaNormal(b);
 		}
 		
 //		RF_01 - Informações Corretas
 		// validação total pra mostrar dados na tela de confirmação
-		// limpar os campos após concluído já criada function, tem q fazer-------------------------------------------------------------------------------------------
 		var finalName = $('.bloqueiaColar.pitura.inicializaSelecionado').val();
 		var finalmes = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker').val();
 		var finalFeriasFalse = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-blank').val();
@@ -224,14 +223,12 @@ function init() {
 							
 							if (r==true){
 								alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-								// limpar todos os campos - criar rf
 								limpaCamposCadastro();
 							}
 							
 						}else{
 							// apenas finalizar
 							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-							// limpar todos os campos - criar rf
 							limpaCamposCadastro();
 						}
 					}
@@ -249,20 +246,19 @@ function init() {
 							
 							if (r==true){
 								alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-								// limpar todos os campos - criar rf
 								limpaCamposCadastro();
 							}
 							
 						}else{
 							// apenas finalizar
 							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-							// limpar todos os campos - criar rf
 							limpaCamposCadastro();
 						}
 					}
 				}
 			}
 		}
+		//adicionando readonly pra bloquear novamente o CTRL+V
 		setTimeout(readonlyTrue(), 3000);
 	});
 }
