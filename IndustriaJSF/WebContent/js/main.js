@@ -144,10 +144,14 @@ $('#bodyLogin .login').click(function(){
 	
 	if(user == "usuario"){
 		if(key == "william20"){
+			// deslogando o usuário em 10 minutos - criar rf
+			createCookie('cookieLogin', 'logado', null, null, 10, null);
 //			$('#bodyCadastro .nameLabel').data('loginvalidator', true);
-			$('#verificaLogin').addClass('loginvalidator');
-			validator = true;
-			redirectCadastro(validator);
+			
+//			$('#verificaLogin').addClass('loginvalidator');
+//			validator = true;
+//			redirectCadastro(validator);
+			window.location.assign("cadastro.xhtml");
 		}else{
 			if(user != "" && key != ""  && key.length > 5){
 				// erro de senha
@@ -162,34 +166,86 @@ $('#bodyLogin .login').click(function(){
 	}
 });
 
-function redirectCadastro(validator){
-	if(validator){
-		window.location.assign("cadastro.xhtml");
-		$('#verificaLogin').addClass('loginvalidator');
-		return;
-	}
-	if($('#verificaLogin').hasClass('loginvalidator')){
-		window.location.assign("cadastro.xhtml");
-	}else{
-		alert("Você não tem permissão de acesso!");
-		window.location.assign("Login.xhtml");
+//function redirectCadastro(validator){
+//	if(validator){
+//		$('#verificaLogin').addClass('loginvalidator');
+//		window.location.assign("cadastro.xhtml");
+//		return;
+//	}
+//	if($('#verificaLogin').hasClass('loginvalidator')){
+//		window.location.assign("cadastro.xhtml");
+//	}else{
+//		alert("Você não tem permissão de acesso!");
+//		window.location.assign("Login.xhtml");
+//	}
+//}
+
+function validaCookie(){
+//	window.document.onload = function(e){ 
+//	    alert("document.onload", e); 
+//	}
+//	alert(getCookie('cookieLogin'));
+	var a = getCookie('cookieLogin');
+	if(getCookie('cookieLogin') != null){
+		
 	}
 }
 
-$('#logout').click(function(){
-	$('#verificaLogin').removeClass('loginvalidator');
-	window.location.assign("Login.xhtml");
-});
-
 function limpaCamposCadastro(){
 	
+}
+
+function createCookie(key, value, expireDays, expireHours, expireMinutes, expireSeconds) {
+    var expireDate = new Date();
+    if (expireDays) {
+        expireDate.setDate(expireDate.getDate() + expireDays);
+    }
+    if (expireHours) {
+        expireDate.setHours(expireDate.getHours() + expireHours);
+    }
+    if (expireMinutes) {
+        expireDate.setMinutes(expireDate.getMinutes() + expireMinutes);
+    }
+    if (expireSeconds) {
+        expireDate.setSeconds(expireDate.getSeconds() + expireSeconds);
+    }
+    document.cookie = key +"="+ escape(value) +
+        ";domain="+ window.location.hostname +
+        ";path=/"+
+        ";expires="+expireDate.toUTCString();
+}
+
+function deleteCookie(name) {
+    setCookie(name, "", null , null , null, 1);
+}
+
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
 }
 
 function init() {
 	// marcando readonly
 	readonlyTrue();
 	
-	logout();
+	// logout
+	$('#logout').click(function(){
+		deleteCookie('cookieLogin');
+//		$.removeCookie('cookieLogin');
+//		var cookie = getCookie('cookieLogin');
+//		$('#verificaLogin').removeClass('loginvalidator');
+		window.location.assign("Login.xhtml");
+	});
 	
 	// iniciando os actionListener dos botões
 	$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');

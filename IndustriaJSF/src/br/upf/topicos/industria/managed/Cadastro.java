@@ -67,7 +67,6 @@ public class Cadastro {
 //					d1 = df.parse ("dateInit");
 //					d2 = df.parse ("dateEnd");
 //				} catch (ParseException e) {
-//					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
 //				long dt = (d2.getTime() - d1.getTime()) + 3600000; // 1 hora para compensar horário de verão
@@ -104,7 +103,6 @@ public class Cadastro {
 				d1 = df.parse ("dateInit");
 				d2 = df.parse ("dateEnd");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			long dt = (d2.getTime() - d1.getTime()) + 3600000; // 1 hora para compensar horário de verão
