@@ -1,24 +1,3 @@
-// validação do botão Login
-// RF_13 - Digitação de dados Inconsistentes
-//function handleLoginRequest(xhr, status, args) {
-//
-//	if (args.validationFailed) {
-//		window.location.assign("cadastro.xhtml");
-//		passwordRed();
-//		loginRed();
-//	}
-	
-//	var user = $('#bodyLogin .inicializarLimpoUsuario').text();
-//	var password = $('#bodyLogin .inicializarLimpoSenha').text();
-//	
-//	if (!args.validationFailed && user.indexOf('usuario') > 0 && password.indexOf('william20') > 0){
-//		window.location.assign("cadastro.xhtml");
-//	} else {
-//		passwordRed();
-//		loginRed();
-//	}
-//}
-
 // RF_15 – Tempo de Espera de Login
 function verificaTempo() {
 	if ($('#bodyLogin .ui-growl.ui-widget .ui-growl-message').length > 0) {
@@ -37,9 +16,13 @@ function reload() {
 	for (var i = 0; i < 2; i++) {
 		if (i != 0) {
 			limpaLogin();
-			window.location.assign("Login.xhtml");
+			redirectLogin();
 		}
 	}
+}
+
+function redirectLogin(){
+	window.location.assign("Login.xhtml");
 }
 
 // RF_11 - Digitação apenas de usuário
@@ -76,60 +59,9 @@ function bordaNormal(i) {
 	});
 }
 
-// RNF/SEG-01 - Requisito de Segurança
-function bloqueiaURL() {
-	var url = window.location.href.toString();
-	if(url == "http://localhost:8080/IndustriaJSF/faces/cadastro.xhtml"){
-//		alert("Erro! Você não tem permissão de acesso!");
-//		window.location.assign("Login.xhtml");
-	}
-}
-
-// RF_02 - Seletor de férias
-function checkFerias() { 
-	var check = $('.testeOpaco div.ui-chkbox-box');
-	if (check.hasClass('ui-state-active')){
-//		$('.buttonEnviar span').prop('textContent', 'Enviar');
-//		$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
-//		$('.opaco input').prop('disabled', true);
-//		// ajustar pra limpar os campos
-//		$('.opaco input').value="";
-//		// deixar cinza as letras e campo
-//		$('.cinza').css({
-//			'border-color' : '#CCCCCC #CCCCCC',
-//			'color' : '#CCCCCC'
-//		});
-//		$('.cinza input').css({
-//			'border-color' : '#CCCCCC #CCCCCC',
-//			'color' : '#CCCCCC'
-//		});
-//		
-//		// remove o required dos campos de data
-//		$('.initFerias.cinza input').prop('aria-required', false);
-//		$('.endFerias.cinza input').prop('aria-required', false);
-//	}else{
-//		$('.buttonEnviar span').prop('textContent', 'Avançar');
-//		$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.avancar}');
-//		$('.opaco input').prop('disabled', false);
-//		bordaNormal($('.cinza'));
-//		$('.cinza').css({
-//			'color' : '#000000'
-//		});
-//		$('.cinza input').css({
-//			'color' : '#000000'
-//		});
-//		
-//		// deixar os campos de data required
-//		$('.initFerias.cinza input').prop('aria-required', true);
-//		$('.endFerias.cinza input').prop('aria-required', true);
-	}
-}
-
 function readonlyTrue() {
 	// adicionando readonly nos calendários pra aparecer a mensagem de erro
 	$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', true);
-//	$('.initFerias.cinza input').prop('readonly', true);
-//	$('.endFerias.cinza input').prop('readonly', true);
 }
 
 function readonlyFalse(){
@@ -145,12 +77,7 @@ $('#bodyLogin .login').click(function(){
 	if(user == "usuario"){
 		if(key == "william20"){
 			// deslogando o usuário em 10 minutos - criar rf
-			createCookie('cookieLogin', 'logado', null, null, 10, null);
-//			$('#bodyCadastro .nameLabel').data('loginvalidator', true);
-			
-//			$('#verificaLogin').addClass('loginvalidator');
-//			validator = true;
-//			redirectCadastro(validator);
+			createCookie('cookieLogin', 'logado', null, null, 1, null);
 			window.location.assign("cadastro.xhtml");
 		}else{
 			if(user != "" && key != ""  && key.length > 5){
@@ -166,35 +93,21 @@ $('#bodyLogin .login').click(function(){
 	}
 });
 
-//function redirectCadastro(validator){
-//	if(validator){
-//		$('#verificaLogin').addClass('loginvalidator');
-//		window.location.assign("cadastro.xhtml");
-//		return;
-//	}
-//	if($('#verificaLogin').hasClass('loginvalidator')){
-//		window.location.assign("cadastro.xhtml");
-//	}else{
-//		alert("Você não tem permissão de acesso!");
-//		window.location.assign("Login.xhtml");
-//	}
-//}
 
+//RNF/SEG-01 - Requisito de Segurança
 function validaCookie(){
-//	window.document.onload = function(e){ 
-//	    alert("document.onload", e); 
-//	}
-//	alert(getCookie('cookieLogin'));
-	var a = getCookie('cookieLogin');
-	if(getCookie('cookieLogin') != null){
-		
+	if(getCookie('cookieLogin') == ""){
+		alert("Erro! Você não tem permissão de acesso!");
+		redirectLogin();
 	}
 }
 
+// criar rf - ao enviar cadastro é pra limpar todos os campos
 function limpaCamposCadastro(){
 	
 }
 
+// criador do cookie - criar rf ou validar, usuário apenas logado acessa cadastro
 function createCookie(key, value, expireDays, expireHours, expireMinutes, expireSeconds) {
     var expireDate = new Date();
     if (expireDays) {
@@ -216,7 +129,7 @@ function createCookie(key, value, expireDays, expireHours, expireMinutes, expire
 }
 
 function deleteCookie(name) {
-    setCookie(name, "", null , null , null, 1);
+	createCookie(name, "", null , null , null, 1);
 }
 
 function getCookie(c_name) {
@@ -239,17 +152,13 @@ function init() {
 	readonlyTrue();
 	
 	// logout
-	$('#logout').click(function(){
+	$('.logout').click(function(){
 		deleteCookie('cookieLogin');
-//		$.removeCookie('cookieLogin');
-//		var cookie = getCookie('cookieLogin');
-//		$('#verificaLogin').removeClass('loginvalidator');
-		window.location.assign("Login.xhtml");
+		redirectLogin();
 	});
 	
 	// iniciando os actionListener dos botões
 	$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
-//	$('#bodyFerias .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
 	
 	// criar rf pra evitar do usuário Colar
 	$('.bloqueiaColar').bind('paste', function(e) {
@@ -260,9 +169,6 @@ function init() {
 	// inicializar o Cadastro com o Campo Nome já selecionado - criar rf
 	$('.inicializaSelecionado').focus();
 
-	// chamada - RNF/SEG-01 - Requisito de Segurança
-	bloqueiaURL();
-	
 	// RF_02 - Seletor de férias - iniciar desabilitado
 	if('#bodyCadastro'){
 		$('.opaco input').prop('disabled', true );
@@ -293,39 +199,8 @@ function init() {
 			bordaNormal(b);
 		}
 		
-		// verifica o checkbox pra pintar os campos de férias
-		var check = $('.testeOpaco div.ui-chkbox-box');
-		if (check.hasClass('ui-state-active')){
-			// pintando campo Início de Férias
-//			var c = $('.initFerias input');
-//			if(c.val() == ""){
-//				bordaRed(c);
-//				// testar aqui pra ele não avançar se estiver vazio
-//			}else{
-//				bordaNormal(c);
-//			}
-//			
-//			// pintando campo Fim de Férias
-//			var c = $('.endFerias input');
-//			if(c.val() == ""){
-//				bordaRed(c);
-//				// testar aqui pra ele não avançar se estiver vazio
-//			}else{
-//				bordaNormal(c);
-//			}
-			
-			//testar se todos os campos foram preenchidos
-			//apresentar mensagem de finalização
-//			window.location.assign("ferias.xhtml");
-		}
-		
-		// trocar para a página de férias
-//		if($('.buttonEnviar span').prop('actionListener', '#{cadastro.avancar}')){
-//			window.location.assign("ferias.xhtml");
-//		}
-		
 		// validação total pra mostrar dados na tela de confirmação
-		// limpar os campos após concluído
+		// limpar os campos após concluído já criada function, tem q fazer-------------------------------------------------------------------------------------------
 		var finalName = $('.bloqueiaColar.pitura.inicializaSelecionado').val();
 		var finalmes = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker').val();
 		var finalFeriasFalse = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-blank').val();
@@ -333,7 +208,7 @@ function init() {
 		var finalQuantidade = $('.ui-helper-hidden-accessible select').val();
 		if(finalName != ""){
 			if(finalmes != ""){
-				// seletor desmarcado
+				// seletor desmarcado - RF_02 - Seletor de férias
 				if(finalFeriasFalse != undefined){
 					// valida se foi selecionado quantidade de folgas
 					if(finalQuantidade == ""){
@@ -357,7 +232,7 @@ function init() {
 							limpaCamposCadastro();
 						}
 					}
-				// seletor marcado
+				// seletor marcado - RF_02 - Seletor de férias
 				}else if(finalFeriasTrue != undefined){
 					// valida se foi selecionado quantidade de folgas
 					if(finalQuantidade == ""){
