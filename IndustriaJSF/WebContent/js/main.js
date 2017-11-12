@@ -1,10 +1,3 @@
-// RF_15 – Tempo de Espera de Login
-function verificaTempo() {
-	if ($('#bodyLogin .ui-growl.ui-widget .ui-growl-message').length > 0) {
-		setTimeout(reload(), 30000);
-	}
-}
-
 // RF_17 – Limpar Campos de Login
 function limpaLogin() {
 	var validator = false;
@@ -45,14 +38,16 @@ function loginRed() {
 	}
 }
 
-// fazer rf para os campos em vermelho
+// RF_14 - Campos obrigatórios
+// pintando em vermelho
 function bordaRed(i) {
 	var pinta = i.css({
 		'border-color' : '#FF0000 #FF0000'
 	});
 }
 
-//fazer rf para os campos em vermelho
+//RF_14 - Campos obrigatórios
+// pintando em cinza
 function bordaNormal(i) {
 	var pinta = i.css({
 		'border-color' : '#bed6f8 #bed6f8'
@@ -69,15 +64,18 @@ function readonlyFalse(){
 	$('.ui-calendar.bloqueiaColar.mesAnoRed input').prop('readonly', false);
 }
 
+//RF_13 - Digitação de dados Inconsistentes
 // login validator
 $('#bodyLogin .login').click(function(){
 	var user = $('#bodyLogin .inicializarLimpoUsuario').val();
 	var key = $('#bodyLogin .inicializarLimpoSenha').val();
 	
+	// RN_03 – Usuário Cadastrado previamente
 	if(user == "usuario"){
 		if(key == "william20"){
-			// deslogando o usuário em 10 minutos - criar rf
-			createCookie('cookieLogin', 'logado', null, null, 1, null);
+//			RF_16 - Tempo de Espera de Dados
+			// deslogando o usuário em 10 minutos
+			createCookie('cookieLogin', 'logado', null, null, 10, null);
 			window.location.assign("cadastro.xhtml");
 		}else{
 			if(user != "" && key != ""  && key.length > 5){
@@ -107,7 +105,7 @@ function limpaCamposCadastro(){
 	
 }
 
-// criador do cookie - criar rf ou validar, usuário apenas logado acessa cadastro
+// criador do cookie
 function createCookie(key, value, expireDays, expireHours, expireMinutes, expireSeconds) {
     var expireDate = new Date();
     if (expireDays) {
@@ -128,10 +126,12 @@ function createCookie(key, value, expireDays, expireHours, expireMinutes, expire
         ";expires="+expireDate.toUTCString();
 }
 
+// remover o cookie
 function deleteCookie(name) {
 	createCookie(name, "", null , null , null, 1);
 }
 
+// pegar o cookie
 function getCookie(c_name) {
     if (document.cookie.length > 0) {
         c_start = document.cookie.indexOf(c_name + "=");
@@ -180,6 +180,7 @@ function init() {
 		'color' : '#CCCCCC'
 	});
 	
+//	RF_10 - Enviar Informações
 	// validações do botão Enviar
 	$('.click').click(function(){
 		// pitando campo nome
@@ -199,6 +200,7 @@ function init() {
 			bordaNormal(b);
 		}
 		
+//		RF_01 - Informações Corretas
 		// validação total pra mostrar dados na tela de confirmação
 		// limpar os campos após concluído já criada function, tem q fazer-------------------------------------------------------------------------------------------
 		var finalName = $('.bloqueiaColar.pitura.inicializaSelecionado').val();
@@ -214,6 +216,7 @@ function init() {
 					if(finalQuantidade == ""){
 						alert("Erro! Por favor selecione uma quantidade de folgas!")
 					}else{
+//						RF_09 - Validação de Folgas
 						if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
 							
 							// mensagem de confirmação, se sim, finalizar
@@ -238,6 +241,7 @@ function init() {
 					if(finalQuantidade == ""){
 						alert("Erro! Por favor selecione uma quantidade de folgas!")
 					}else{
+//						RF_09 - Validação de Folgas
 						if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
 							
 							// mensagem de confirmação, se sim, finalizar
