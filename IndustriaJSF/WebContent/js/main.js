@@ -159,8 +159,11 @@ function init() {
 	// RF_20 - Validação Botão Sair
 	// logout
 	$('.logout').click(function(){
-		deleteCookie('cookieLogin');
-		redirectLogin();
+		var logout = confirm("Tem certeza que deseja sair?")
+		if (logout==true){
+			deleteCookie('cookieLogin');
+			redirectLogin();
+		}
 	});
 	
 	// iniciando os actionListener do botão
