@@ -69,30 +69,62 @@ function readonlyFalse(){
 //RF_13 - Digitação de dados Inconsistentes
 // login validator
 $('#bodyLogin .login').click(function(){
+	validaCookieLogado();
 	var user = $('#bodyLogin .inicializarLimpoUsuario').val();
 	var key = $('#bodyLogin .inicializarLimpoSenha').val();
 	
 	// RN_03 – Usuário Cadastrado previamente
 	if(user == "usuario"){
+		bordaNormal($('.loginRed'));
 		if(key == "william20"){
+			bordaNormal($('.passRed'));
 //			RF_16 - Tempo de Espera de Dados
 			// deslogando o usuário em 10 minutos
-			createCookie('cookieLogin', 'logado', null, null, 10, null);
+			createCookie('cookieLogin', 'logado', null, null, 3, null);
 			window.location.assign("cadastro.xhtml");
 		}else{
+			bordaRed($('.passRed'));
 			if(user != "" && key != ""  && key.length > 5){
 				// erro de senha
 				alert("Erro ao fazer tentar Login, Senha Inválida");
+				bordaRed($('.passRed'));
 			}
 		}
 	}else{
+		bordaRed($('.loginRed'));
 		if(user != "" && key != "" && user.length > 5){
 			// erro de usuário
 			alert("Erro ao fazer tentar Login, Usuário Inválido");
+			bordaRed($('.loginRed'));
+		}
+		if(key == ""){
+			bordaRed($('.passRed'));
+		}else{
+			bordaNormal($('.passRed'));
 		}
 	}
 });
 
+// valida se o usuário passou dos 10 minutos de login e expirou
+//RNF/SEG-01 - Requisito de Segurança
+function validaCookieAtivo(){
+	if(getCookie('cookieLogin') == ""){
+		alert("Erro! Sua sessão expirou!");
+		redirectLogin();
+	}
+}
+
+// valida se o usuário já está logado pra não logar novamente
+//RNF/SEG-01 - Requisito de Segurança
+function validaCookieLogado(){
+	if(getCookie('cookieLogin') == "logado"){
+		alert("Erro! Você já está logado!");
+//		window.location.assign("cadastro.xhtml");
+//		redirectLogin();
+	}
+}
+
+// valida se o usuário entrou direto pela url ou algo parecido sem logar
 //RNF/SEG-01 - Requisito de Segurança
 function validaCookie(){
 	if(getCookie('cookieLogin') == ""){
@@ -187,6 +219,9 @@ function init() {
 	// RF_10 - Enviar Informações
 	// validações do botão Enviar
 	$('.click').click(function(){
+		// teste se está ativo ainda o login
+		validaCookieAtivo();
+		
 		// pitando campo nome
 		var a = $('.pitura');
 		if(a.val() == ""){

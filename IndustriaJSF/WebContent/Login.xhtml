@@ -28,7 +28,7 @@
 	 
 		<!--	RF_12 – Digitação apenas de senha -->
 	            <h:outputLabel for="password" value="Senha:" />
-	            <p:password id="password" class="bloqueiaColar inicializarLimpoSenha" value="#{login.password}" required="true" label="password" maxlength="12" requiredMessage="Por favor, preencher o campo Senha!" 
+	            <p:password id="password" class="passRed bloqueiaColar inicializarLimpoSenha" value="#{login.password}" required="true" label="password" maxlength="12" requiredMessage="Por favor, preencher o campo Senha!" 
 					validatorMessage="O tamanho do campo Senha deve conter de 6 a 12 caracteres!">
 			<!--	RN_02 – Formato de senha - formato da senha -->
 	            	<p:keyFilter regEx="/[a-zA-Z0-9]/i"/>
