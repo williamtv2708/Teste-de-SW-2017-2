@@ -18,6 +18,10 @@ function redirectLogin(){
 	window.location.assign("Login.xhtml");
 }
 
+function redirectCadastro(){
+	window.location.assign("cadastro.xhtml");
+}
+
 // RF_11 - Digitação apenas de usuário
 function passwordRed() {
 	var mensagem = $('#bodyLogin .ui-growl-title').text();
@@ -80,8 +84,8 @@ $('#bodyLogin .login').click(function(){
 			bordaNormal($('.passRed'));
 //			RF_16 - Tempo de Espera de Dados
 			// deslogando o usuário em 10 minutos
-			createCookie('cookieLogin', 'logado', null, null, 3, null);
-			window.location.assign("cadastro.xhtml");
+			createCookie('cookieLogin', 'logado', null, null, 10, null);
+			redirectCadastro();
 		}else{
 			bordaRed($('.passRed'));
 			if(user != "" && key != ""  && key.length > 5){
@@ -91,7 +95,6 @@ $('#bodyLogin .login').click(function(){
 			}
 		}
 	}else{
-		bordaRed($('.loginRed'));
 		if(user != "" && key != "" && user.length > 5){
 			// erro de usuário
 			alert("Erro ao fazer tentar Login, Usuário Inválido");
@@ -136,10 +139,7 @@ function validaCookie(){
 // RF_19 – Mensagem de Confirmação de Envio
 // ao enviar cadastro é pra limpar todos os campos
 function limpaCamposCadastro(){
-	$('.limparNome').val("");
-	$('.limparData').val("");
-	$('.limparCheck').val("");
-	$('.limparSeletor').val("");
+	redirectCadastro();
 }
 
 // criador do cookie
@@ -163,6 +163,11 @@ function createCookie(key, value, expireDays, expireHours, expireMinutes, expire
         ";expires="+expireDate.toUTCString();
 }
 
+// deslogando ao fechar o navegador
+function removeSession(){
+	deleteCookie('cookieLogin');
+}
+
 // remover o cookie
 function deleteCookie(name) {
 	createCookie(name, "", null , null , null, 1);
@@ -184,19 +189,106 @@ function getCookie(c_name) {
     return "";
 }
 
+function validaTotalLogin(){
+	// teste se está ativo ainda o login
+	validaCookieAtivo();
+	
+	// pitando campo nome
+	var a = $('.pitura');
+	if(a.val() == ""){
+		bordaRed(a);
+	}else{
+		bordaNormal(a);
+	}
+	
+	// pintando campo Mes de Trabalho
+	var b = $('.mesAnoRed input');
+	if(b.val() == ""){
+		bordaRed(b);
+	}else{
+		bordaNormal(b);
+	}
+	
+//	RF_01 - Informações Corretas
+	// validação total pra mostrar dados na tela de confirmação
+	var finalName = $('.bloqueiaColar.pitura.inicializaSelecionado').val();
+	var finalmes = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker').val();
+	var finalFeriasFalse = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-blank').val();
+	var finalFeriasTrue = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-check').val();
+	var finalQuantidade = $('.ui-helper-hidden-accessible select').val();
+	if(finalName != ""){
+		if(finalmes != ""){
+			// seletor desmarcado - RF_02 - Seletor de férias
+			if(finalFeriasFalse != undefined){
+				// valida se foi selecionado quantidade de folgas
+				if(finalQuantidade == ""){
+					alert("Erro! Por favor selecione uma quantidade de folgas!")
+				}else{
+//					RF_09 - Validação de Folgas
+					if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
+						
+						// mensagem de confirmação, se sim, finalizar
+						var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
+						
+						if (r==true){
+							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+							limpaCamposCadastro();
+						}
+						
+					}else{
+						// apenas finalizar
+						alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+						limpaCamposCadastro();
+					}
+				}
+			// seletor marcado - RF_02 - Seletor de férias
+			}else if(finalFeriasTrue != undefined){
+				// valida se foi selecionado quantidade de folgas
+				if(finalQuantidade == ""){
+					alert("Erro! Por favor selecione uma quantidade de folgas!")
+				}else{
+//					RF_09 - Validação de Folgas
+					if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
+						
+						// mensagem de confirmação, se sim, finalizar
+						var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
+						
+						if (r==true){
+							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+							limpaCamposCadastro();
+						}
+						
+					}else{
+						// apenas finalizar
+						alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+						limpaCamposCadastro();
+					}
+				}
+			}
+		}
+	}
+	//adicionando readonly pra bloquear novamente o CTRL+V
+	setTimeout(readonlyTrue(), 3000);
+}
+
+// RF_20 - Validação Botão Sair
+// logout
+$('.logout').click(function(){
+	var logout = confirm("Tem certeza que deseja sair?")
+	if (logout==true){
+		deleteCookie('cookieLogin');
+		redirectLogin();
+	}
+});
+
 function init() {
+	// RNF/SEG-01 rodando no chrome
+	if (navigator.userAgent.indexOf("Chrome") == -1) {
+		alert('Por favor, utilize o navegador Chrome para esta aplicação!');
+	}
+	
 	// marcando readonly
 	readonlyTrue();
-	
-	// RF_20 - Validação Botão Sair
-	// logout
-	$('.logout').click(function(){
-		var logout = confirm("Tem certeza que deseja sair?")
-		if (logout==true){
-			deleteCookie('cookieLogin');
-			redirectLogin();
-		}
-	});
 	
 	// iniciando os actionListener do botão
 	$('#bodyCadastro .buttonEnviar span').prop('actionListener', '#{cadastro.enviar}');
@@ -219,85 +311,7 @@ function init() {
 	// RF_10 - Enviar Informações
 	// validações do botão Enviar
 	$('.click').click(function(){
-		// teste se está ativo ainda o login
-		validaCookieAtivo();
-		
-		// pitando campo nome
-		var a = $('.pitura');
-		if(a.val() == ""){
-			bordaRed(a);
-		}else{
-			bordaNormal(a);
-		}
-		
-		// pintando campo Mes de Trabalho
-		var b = $('.mesAnoRed input');
-		if(b.val() == ""){
-			bordaRed(b);
-		}else{
-			bordaNormal(b);
-		}
-		
-//		RF_01 - Informações Corretas
-		// validação total pra mostrar dados na tela de confirmação
-		var finalName = $('.bloqueiaColar.pitura.inicializaSelecionado').val();
-		var finalmes = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker').val();
-		var finalFeriasFalse = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-blank').val();
-		var finalFeriasTrue = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-check').val();
-		var finalQuantidade = $('.ui-helper-hidden-accessible select').val();
-		if(finalName != ""){
-			if(finalmes != ""){
-				// seletor desmarcado - RF_02 - Seletor de férias
-				if(finalFeriasFalse != undefined){
-					// valida se foi selecionado quantidade de folgas
-					if(finalQuantidade == ""){
-						alert("Erro! Por favor selecione uma quantidade de folgas!")
-					}else{
-//						RF_09 - Validação de Folgas
-						if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
-							
-							// mensagem de confirmação, se sim, finalizar
-							var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
-							
-							if (r==true){
-								alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-								limpaCamposCadastro();
-							}
-							
-						}else{
-							// apenas finalizar
-							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-							limpaCamposCadastro();
-						}
-					}
-				// seletor marcado - RF_02 - Seletor de férias
-				}else if(finalFeriasTrue != undefined){
-					// valida se foi selecionado quantidade de folgas
-					if(finalQuantidade == ""){
-						alert("Erro! Por favor selecione uma quantidade de folgas!")
-					}else{
-//						RF_09 - Validação de Folgas
-						if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
-							
-							// mensagem de confirmação, se sim, finalizar
-							var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
-							
-							if (r==true){
-								alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-								limpaCamposCadastro();
-							}
-							
-						}else{
-							// apenas finalizar
-							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário com férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-							limpaCamposCadastro();
-						}
-					}
-				}
-			}
-		}
-		//adicionando readonly pra bloquear novamente o CTRL+V
-		setTimeout(readonlyTrue(), 3000);
+		validaTotalLogin();
 	});
 }
 
