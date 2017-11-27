@@ -28,12 +28,10 @@ public class TesteReleaseLogin {
 		em.getTransaction().commit();
 	}
 	
-	
-	
 	public void CampoLogin() {
 		
 		//setando valor no campo usuário
-//		login.setUsername("usuario");
+		login.setUsername("usuario");
 		
 		if(login.getUsername().equals("usuario")){
 			try {
@@ -49,9 +47,7 @@ public class TesteReleaseLogin {
 	public void CampoSenha(){
 
 		//setando valor no campo senha
-//		login.setPassword("william20");
-		
-//		sitex
+		login.setPassword("william20");
 		
 		if(login.getPassword().equals("william20")){
 			try {

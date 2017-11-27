@@ -102,10 +102,13 @@ $('#bodyLogin .login').click(function(){
 		}
 		if(key == ""){
 			bordaRed($('.passRed'));
+			bordaRed($('.loginRed'));
 		}else{
 			bordaNormal($('.passRed'));
 		}
 	}
+	
+	
 });
 
 // valida se o usuário passou dos 10 minutos de login e expirou
@@ -209,38 +212,39 @@ function validaTotalLogin(){
 		bordaNormal(b);
 	}
 	
+	// valida se foi selecionado quantidade de folgas
+	var finalQuantidade = $('.ui-helper-hidden-accessible select').val();
+	if(finalQuantidade == ""){
+		bordaRed($('.ui-selectonemenu'));
+	}else{
+		bordaNormal($('.ui-selectonemenu'));
+//		RF_09 - Validação de Folgas
+		if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
+			// mensagem de confirmação, se sim, finalizar
+			var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
+			
+			if (r==true){
+				alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+				limpaCamposCadastro();
+			}
+			
+		}else{
+			// apenas finalizar
+			alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
+			limpaCamposCadastro();
+		}
+	}
+	
 //	RF_01 - Informações Corretas
 	// validação total pra mostrar dados na tela de confirmação
 	var finalName = $('.bloqueiaColar.pitura.inicializaSelecionado').val();
 	var finalmes = $('.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker').val();
 	var finalFeriasFalse = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-blank').val();
 	var finalFeriasTrue = $('.ui-chkbox-icon.ui-icon.ui-c.ui-icon-check').val();
-	var finalQuantidade = $('.ui-helper-hidden-accessible select').val();
 	if(finalName != ""){
 		if(finalmes != ""){
 			// seletor desmarcado - RF_02 - Seletor de férias
 			if(finalFeriasFalse != undefined){
-				// valida se foi selecionado quantidade de folgas
-				if(finalQuantidade == ""){
-					alert("Erro! Por favor selecione uma quantidade de folgas!")
-				}else{
-//					RF_09 - Validação de Folgas
-					if(finalQuantidade == "0 Dia" || finalQuantidade == "1 Dia" || finalQuantidade == "2 Dias" || finalQuantidade == "3 Dias"){
-						
-						// mensagem de confirmação, se sim, finalizar
-						var r = confirm("Tem certeza que deseja selecionar " + finalQuantidade + " para folga?")
-						
-						if (r==true){
-							alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-							limpaCamposCadastro();
-						}
-						
-					}else{
-						// apenas finalizar
-						alert("Funcionário " + finalName + " cadastrado com sucesso com os seguintes dados:\n - Data de Trabalho: " + finalmes + "\n - Funcionário sem férias no Mês\n - Funcionário com " + finalQuantidade + " de folga.")
-						limpaCamposCadastro();
-					}
-				}
 			// seletor marcado - RF_02 - Seletor de férias
 			}else if(finalFeriasTrue != undefined){
 				// valida se foi selecionado quantidade de folgas
