@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import br.upf.topicos.industria.managed.Login;
 import br.upf.topicos.industria.util.GerirFactory;
 
-public class Test {
+public class TesteJUnitLogin {
 
 	@org.junit.Test
 	public void testVeiculo() {

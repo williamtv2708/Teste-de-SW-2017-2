@@ -95,6 +95,9 @@ $('#bodyLogin .login').click(function(){
 			}
 		}
 	}else{
+		if(user == ""){
+			bordaRed($('.loginRed'));
+		}
 		if(user != "" && key != "" && user.length > 5){
 			// erro de usuário
 			alert("Erro ao fazer tentar Login, Usuário Inválido");
@@ -125,8 +128,8 @@ function validaCookieAtivo(){
 function validaCookieLogado(){
 	if(getCookie('cookieLogin') == "logado"){
 		alert("Erro! Você já está logado!");
-//		window.location.assign("cadastro.xhtml");
-//		redirectLogin();
+		window.location.assign("cadastro.xhtml");
+		redirectLogin();
 	}
 }
 
@@ -192,7 +195,7 @@ function getCookie(c_name) {
     return "";
 }
 
-function validaTotalLogin(){
+function validaTotalCadastro(){
 	// teste se está ativo ainda o login
 	validaCookieAtivo();
 	
@@ -288,7 +291,7 @@ $('.logout').click(function(){
 function init() {
 	// RNF/SEG-01 rodando no chrome
 	if (navigator.userAgent.indexOf("Chrome") == -1) {
-		alert('Por favor, utilize o navegador Chrome para esta aplicação!');
+//		alert('Por favor, utilize o navegador Chrome para esta aplicação!');
 	}
 	
 	// marcando readonly
@@ -315,7 +318,7 @@ function init() {
 	// RF_10 - Enviar Informações
 	// validações do botão Enviar
 	$('.click').click(function(){
-		validaTotalLogin();
+		validaTotalCadastro();
 	});
 }
 
